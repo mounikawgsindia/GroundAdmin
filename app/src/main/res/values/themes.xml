@@ -1,0 +1,84 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.GroundOwner" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="colorPrimary">@color/primaryColor</item>
+    </style>
+
+    <style name="Theme.GroundOwner" parent="Base.Theme.GroundOwner" />
+
+    <style name="Theme.GroundOwner.Splash" parent="Base.Theme.GroundOwner">
+        <item name="android:windowBackground">@color/green</item>
+        <item name="android:windowSplashScreenAnimatedIcon" tools:ignore="NewApi">@drawable/logo
+        </item>
+        <item name="postSplashScreenTheme">@style/Base.Theme.GroundOwner</item>
+    </style>
+
+
+    <style name="MainHeadingTextStyle_green">
+        <item name="android:textSize">@dimen/text_main_heading</item>
+        <item name="android:textColor">@color/text_green</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="HeadingTextStyle_green">
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textColor">@color/text_green</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="HeadingTextStyle_black">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="MainHeadingTextStyle">
+        <item name="android:textSize">@dimen/text_heading</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <style name="NormalTextStyle_Green">
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+    </style>
+
+    <style name="NormalTextStyle_black">
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+    </style>
+
+    <style name="NormalTextStyle_white">
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:fontFamily">sans-serif-condensed-medium</item>
+    </style>
+
+    <style name="NormalTextStyle_grey">
+        <item name="android:textSize">@dimen/text_normal</item>
+        <item name="android:textColor">@color/grey</item>
+        <item name="android:fontFamily">ssans-serif-condensed-medium</item>
+    </style>
+    <style name="SmallTextStyle_green">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/green</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="SmallTextStyle_grey">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">#7C7E7C</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+    <style name="ErrorTextStyle_red">
+        <item name="android:textSize">@dimen/text_small</item>
+        <item name="android:textColor">@color/light_red</item>
+        <item name="android:fontFamily">sans-serif</item>
+    </style>
+
+
+</resources>
