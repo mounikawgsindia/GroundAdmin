@@ -26,12 +26,12 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class LoginFragment : Fragment() {
 
-
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
 
-    private val viewModel: AuthViewModel by viewModels()
     private lateinit var mobileNumber:String
+
+    private val viewModel: AuthViewModel by viewModels()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,46 +44,50 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        // Initialize ViewModel with Factory
+
         setUI()
         setObservers()
     }
 
+
     private fun setObservers() {
-        viewModel.loginStatus.observe(viewLifecycleOwner) {
-            when (it) {
-                is Resource.Success -> {
-                    Toast.makeText(context, "Verification Successful", Toast.LENGTH_SHORT).show()
-                    Log.d("Login","--->Verification Successful")
-                    val bundle = Bundle().apply {
-                        putString("mobilenumber", mobileNumber)
-                    }
-                    findNavController().navigate(R.id.action_loginFragment_to_otpVerificationFragment,bundle)
-                }
-                is Resource.Error -> {
-                    Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
-                    Log.e("Error","--->${it.message}")
-                }
-                is Resource.Loading -> {
-                    Log.d("Loading", "---> Verification in...")
-                }
-
-
+        viewModel.loginStatus.observe(viewLifecycleOwner) { resource ->
+            when (resource) {
+                is Resource.Success -> handleLoginSuccess(resource.data?.message)
+                is Resource.Error -> handleLoginError(resource.message)
+                is Resource.Loading -> Log.d("Loading", "---> Verification in progress...")
             }
         }
-        viewModel.isDataValid.observe(viewLifecycleOwner){isValid->
-            if (isValid) handleLogin()
+
+        viewModel.isDataValid.observe(viewLifecycleOwner) { isValid ->
+            if (isValid) handleLogin() else Singleton.showToast(requireContext(), "Invalid Mobile Number")
         }
     }
 
     private fun handleLogin() {
         if (Singleton.isNetworkAvailable(requireContext())) {
-
-            mobileNumber.let { viewModel.login(it) }
+            mobileNumber.let { viewModel.login("+91$it") }
         } else {
             Singleton.showNetworkAlertDialog(requireContext())
         }
     }
+    private fun handleLoginSuccess(message: String?) {
+        Toast.makeText(context, "Verification Successful ${message}", Toast.LENGTH_SHORT).show()
+        Log.d("Login", "---> Verification Successful")
+        Singleton.showCustomSnackbar(requireContext(), message ?: "Success", R.color.green)
+
+        val bundle = Bundle().apply {
+            putString("mobilenumber", mobileNumber)
+        }
+        findNavController().navigate(R.id.action_loginFragment_to_otpVerificationFragment, bundle)
+    }
+
+    private fun handleLoginError(message: String?) {
+        Log.e("Login failed", "---> $message")
+        Singleton.showToast(requireContext(), message ?: "Error occurred")
+        Singleton.showCustomSnackbar(requireContext(), message ?: "Error", R.color.light_red)
+    }
+
 
     private fun setUI() {
 
@@ -100,9 +104,11 @@ class LoginFragment : Fragment() {
             }
 
         }
+
     }
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }
+
 }

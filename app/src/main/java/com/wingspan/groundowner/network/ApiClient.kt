@@ -14,18 +14,19 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiClient {
-
-    @Provides
-    @Singleton
-    fun provideRetrofit(): Retrofit {
-        return Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL) // Ensure BASE_URL is defined in gradle.properties
+    //BuildConfig.BASE_URL
+    private val retrofit: Retrofit by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://ground-owner.onrender.com/") // Ensure BASE_URL is defined in gradle.properties
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
+
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): ApiService {
-        return retrofit.create(ApiService::class.java)
-    }
+    fun provideRetrofit(): Retrofit = retrofit
+
+    @Provides
+    @Singleton
+    fun provideApiService(): ApiService = retrofit.create(ApiService::class.java)
 }

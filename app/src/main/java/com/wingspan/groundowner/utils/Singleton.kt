@@ -1,18 +1,26 @@
 package com.wingspan.groundowner.utils
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.Context
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatButton
 import androidx.core.content.ContextCompat
+import com.google.android.material.snackbar.Snackbar
 import com.wingspan.groundowner.R
+import dagger.Module
+import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 
 
 object Singleton {
@@ -59,5 +67,37 @@ object Singleton {
             imm.hideSoftInputFromWindow(it.windowToken, 0)
         }
 
+    }
+    fun showToast(context:Context,message:String)
+    {
+        Toast.makeText(context,message, Toast.LENGTH_SHORT).show()
+    }
+    @SuppressLint("RestrictedApi", "MissingInflatedId")
+    fun showCustomSnackbar(
+        context: Context,
+        message: String,color:Int
+    ) {
+        val activity = context as? Activity ?: return
+
+        // Fetch the root view of the activity
+        val rootView = activity.findViewById<View>(android.R.id.content)
+        val snackbar = Snackbar.make(rootView, "", Snackbar.LENGTH_LONG)
+
+        // Inflate custom view
+        val customSnackbarView = LayoutInflater.from(context).inflate(R.layout.customised_snackbar, null)
+
+        // Customize the layout elements inside customSnackbarView
+        val errorMessage = customSnackbarView.findViewById<TextView>(R.id.snackbar_text)
+        val viewColor = customSnackbarView.findViewById<View>(R.id.view)
+        errorMessage.text = message
+        Log.d("view color","view Color ${color}")
+        val actualColor = ContextCompat.getColor(context, color)
+        viewColor.setBackgroundColor(actualColor)
+        // Add custom view to Snackbar
+        val snackbarLayout = snackbar.view as Snackbar.SnackbarLayout
+        snackbarLayout.setPadding(0, 0, 0, 0) // Remove default padding
+        snackbarLayout.addView(customSnackbarView, 0)
+        snackbarLayout.setBackgroundColor(ContextCompat.getColor(context, R.color.white))
+        snackbar.show()
     }
 }

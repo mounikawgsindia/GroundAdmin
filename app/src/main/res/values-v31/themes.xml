@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.GroundOwner.Splash" parent="Base.Theme.GroundOwner">
+        <item name="android:windowBackground">@color/white</item>
+<!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/sports</item>-->
+<!--        <item name="postSplashScreenTheme">@style/Base.Theme.GroundOwner</item>-->
+    </style>
+</resources>

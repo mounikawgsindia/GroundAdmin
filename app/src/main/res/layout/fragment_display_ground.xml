@@ -1,0 +1,336 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/swipeRefreshLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    >
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        >
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+            <LinearLayout
+                android:id="@+id/backll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp"
+                tools:ignore="MissingConstraints">
+                <ImageView
+                    android:id="@+id/back_icon"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_weight="0.2"
+                    android:src="@drawable/back_icon"
+                    android:tint="@color/black"
+                    tools:ignore="ContentDescription,UseAppTint" />
+
+                <TextView
+                    android:id="@+id/title_text"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="3.8"
+                    android:gravity="start"
+                    android:text="Back"
+                    android:textColor="@color/black" />
+
+
+            </LinearLayout>
+            <View
+                android:id="@+id/view"
+                android:layout_width="match_parent"
+                android:layout_height="4dp"
+                android:layout_marginTop="4dp"
+                android:background="@drawable/shadow_background"
+                app:layout_constraintTop_toBottomOf="@+id/backll"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:listitem="@layout/fragment_display_ground"/>
+
+            <TextView
+                android:id="@+id/tvVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="About this Venue"
+                style="@style/NormalTextStyle_black"
+                android:layout_margin="10dp"
+                />
+
+            <!-- About Venue TextView (below Venue) -->
+            <TextView
+                android:id="@+id/tvAboutVenue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="This is a description about the venue. It provides more details.szfdfdfzsadcsxzcxcxcvxxvxzvcxvcxzvxzvcvcxb"
+
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_margin="10dp"
+
+                android:layout_marginTop="8dp" />
+            <View
+                android:id="@+id/view1"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+
+                />
+            <TextView
+                android:id="@+id/sports"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avaiable Sports"
+                style="@style/NormalTextStyle_black"
+                android:layout_margin="10dp"
+                />
+            <TextView
+                android:id="@+id/sportstype"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_margin="10dp"
+                android:text="@string/box_cricket_tennis_football_and_turff_cricket_court"
+
+                android:layout_marginTop="8dp" />
+            <View
+                android:id="@+id/view2"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+                app:layout_constraintTop_toBottomOf="@+id/sportstype"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+
+
+            <TextView
+                android:id="@+id/facilities"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Facilities"
+                style="@style/NormalTextStyle_black"
+                android:layout_margin="10dp"
+                />
+            <TextView
+                android:id="@+id/amentieslisttv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_margin="10dp"
+                android:text="Facilities"
+                android:layout_marginTop="8dp" />
+            <View
+                android:id="@+id/view3"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+                app:layout_constraintTop_toBottomOf="@+id/amentieslisttv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                />
+            <TextView
+                android:id="@+id/venuerules"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Venue Rules"
+                style="@style/NormalTextStyle_black"
+                android:layout_margin="10dp"
+                />
+            <TextView
+                android:id="@+id/venuerulestv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_margin="10dp"
+                android:text="venue rules "
+                android:layout_marginTop="8dp" />
+            <View
+                android:id="@+id/view4"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+
+                />
+
+                <!-- Name of the Ground -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="City Name: "
+                    style="@style/NormalTextStyle_black"
+                    android:layout_marginBottom="8dp" />
+                <!-- Cost -->
+                <TextView
+                    android:id="@+id/citynametv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test"
+                    style="@style/NormalTextStyle_black"
+                    android:textColor="@color/sports_text"
+                    android:layout_marginBottom="4dp" />
+
+            <View
+                android:id="@+id/view5"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+
+                />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Area Name "
+                    style="@style/NormalTextStyle_black"
+                    android:layout_marginBottom="8dp" />
+                <!-- Cost -->
+                <TextView
+                    android:id="@+id/areatv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test"
+                    style="@style/NormalTextStyle_black"
+                    android:textColor="@color/sports_text"
+                    android:layout_marginBottom="4dp" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+
+                />
+
+                <!-- Name of the Ground -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Pincode"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_marginBottom="8dp" />
+                <!-- Cost -->
+                <TextView
+                    android:id="@+id/pincodetv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test"
+                    style="@style/NormalTextStyle_black"
+                    android:textColor="@color/sports_text"
+                    android:layout_marginBottom="4dp" />
+
+            <View
+                android:id="@+id/view7"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+                />
+
+                <!-- Name of the Ground -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Address"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_marginBottom="8dp" />
+                <!-- Cost -->
+                <TextView
+                    android:id="@+id/addresstv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test"
+                    style="@style/NormalTextStyle_black"
+                    android:textColor="@color/sports_text"
+                    android:layout_marginBottom="4dp" />
+
+            <View
+                android:id="@+id/view9"
+                android:layout_width="match_parent"
+                android:layout_height="8dp"
+                android:layout_margin="8dp"
+                android:background="@color/background_grey"
+                />
+
+                <!-- Name of the Ground -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Location Link"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_marginBottom="8dp" />
+                <!-- Cost -->
+                <TextView
+                    android:id="@+id/locationtv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="test"
+                    style="@style/NormalTextStyle_black"
+                    android:textColor="@color/sports_text"
+                    android:layout_marginBottom="4dp" />
+
+
+            <!-- Name of the Ground -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price Per Hour"
+                style="@style/NormalTextStyle_black"
+                android:layout_marginBottom="8dp" />
+            <!-- Cost -->
+            <TextView
+                android:id="@+id/pricetv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_marginBottom="4dp" />
+
+
+            <!-- Name of the Ground -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Avalable Slots"
+                style="@style/NormalTextStyle_black"
+                android:layout_marginBottom="8dp" />
+            <!-- Cost -->
+            <TextView
+                android:id="@+id/slotstv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="test"
+                style="@style/NormalTextStyle_black"
+                android:textColor="@color/sports_text"
+                android:layout_marginBottom="4dp" />
+
+
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

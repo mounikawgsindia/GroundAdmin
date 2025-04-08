@@ -1,10 +1,11 @@
-package com.wingspan.groundowner
+package com.wingspan.groundowner.activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
+import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.ActivityDashBoardBinding
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -25,7 +26,7 @@ class DashBoardActivity : AppCompatActivity() {
         binding.bottomNavigationView.setupWithNavController(navController)
         binding.bottomNavigationView.setOnItemSelectedListener (){menuItem->
             when(menuItem.itemId){
-                R.id.nav_dashboard->navController.navigate(R.id.dashBoardFragment)
+                R.id.nav_dashboard ->navController.navigate(R.id.dashBoardFragment)
                 R.id.nav_grounds -> navController.navigate(R.id.groundsFragemnt)
                 R.id.nav_payments -> navController.navigate(R.id.paymentsFragment)
 

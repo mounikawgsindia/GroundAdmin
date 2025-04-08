@@ -1,15 +1,22 @@
 package com.wingspan.groundowner.repository
 
+import LoginRequest
+import LoginResponse
+import RegisterRequest
+import RegisterResponse
+import ResponseData
+import VerifyRequest
 import android.util.Log
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.viewModelScope
 
-import com.wingspan.groundowner.model.LoginRequest
-import com.wingspan.groundowner.model.LoginResponse
-import com.wingspan.groundowner.model.RegisterRequest
-import com.wingspan.groundowner.model.RegisterResponse
 
 import com.wingspan.groundowner.network.ApiService
 
 import com.wingspan.groundowner.utils.Resource
+import kotlinx.coroutines.launch
+import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
 import retrofit2.Response
@@ -21,60 +28,128 @@ import javax.inject.Inject
 class AuthRepository @Inject constructor(private val apiService1: ApiService)  {
 
 
-        suspend fun login(mobileNumber: String): Resource<LoginResponse> {
-            Log.d("Login", "Attempting login with mobile: $mobileNumber")
-            return safeApiCall {
-                apiService1.loginAdmin(LoginRequest(mobileNumber))
-            }
-        }
 
-        suspend fun register(name: String, email: String, password: String): Resource<RegisterResponse> {
-            Log.d("Register", "Attempting registration with email: $email")
-            return safeApiCall {
-                apiService1.register(RegisterRequest(name, email, password))
-            }
-        }
+    suspend fun login(mobilenumber:String): Resource<ResponseData> {
+        Log.d("Login","--->login repository $mobilenumber")
+        return try {
+            val response = apiService1.loginAdmin(LoginRequest(mobilenumber))
+            //response.isSuccessful means 200 to 299
+            if (response.isSuccessful) {
+                Resource.Success(response.body()!!)
+            } else {
 
-        // Centralized API call handler
-        private inline fun <T> safeApiCall(apiCall: () -> Response<T>): Resource<T> {
-            return try {
-                val response = apiCall()
-                if (response.isSuccessful) {
-                    response.body()?.let {
-                        Resource.Success(it)
-                    } ?: Resource.Error("Empty response body")
-                } else {
-                    val errorMessage = parseError(response.errorBody()?.string())
-                    Log.e("API Error", "Code: ${response.code()}, Message: $errorMessage")
-                    Resource.Error(errorMessage)
-                }
-            } catch (e: IOException) {
-                Log.e("Network Error", "IOException: ${e.message}")
-                Resource.Error("Network connection issue, please check your internet")
-            } catch (e: retrofit2.HttpException) {
-                Log.e("Server Error", "HttpException: ${e.message}")
-                Resource.Error("Server error, please try again later")
-            } catch (e: Exception) {
-                Log.e("Unexpected Error", "Exception: ${e.message}")
-                Resource.Error("Unexpected error occurred: ${e.message}")
-            }
-        }
+                val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                Log.d("Login Error", "Response Code: ${response.code()}, Error: $errorBody")
 
-        // Parses the error response body
-        private fun parseError(errorBodyString: String?): String {
-            return try {
-                errorBodyString?.let {
-                    val jsonObject = JSONObject(it)
-                    jsonObject.optString("error")
-                        .takeIf { msg -> msg.isNotBlank() }
-                        ?: jsonObject.optString("message")
-                            .takeIf { msg -> msg.isNotBlank() }
-                        ?: "An unexpected error occurred"
-                } ?: "Unknown error occurred"
-            } catch (e: Exception) {
-                Log.e("JSONParsingError", "Failed to parse error: ${e.message}")
-                "Failed to parse error: ${e.message}"
+                val errorMessage = parseErrorMessage(errorBody) ?: "Unexpected error occurred"
+                Resource.Error(errorMessage)
             }
+        } catch (e: Exception) {
+            Log.d("error exp","--->login ${e.message}")
+            Resource.Error("Network Error: ${e.message}")
+        }catch (e: SocketTimeoutException) {
+            Resource.Error("Server timeout, please try again later")
+        } catch (e: UnknownHostException) {
+            Resource.Error("No internet connection, please check your network")
+        } catch (e: HttpException) {
+            Resource.Error("Server error, please try again later")
+        } catch (e: IOException) {
+            Resource.Error("Network connection issue, please check your internet")
         }
+    }
+
+    suspend fun register(name: String, email: String, mobilenumber: String): Resource<ResponseData> {
+        return try {
+            Log.d("register","--->login repository $mobilenumber..$name...$email")
+            val response = apiService1.register(RegisterRequest(name, email, mobilenumber))
+            if (response.isSuccessful) {
+                Resource.Success(response.body()!!)
+            } else {
+                val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                Log.d("register Error", "Response Code: ${response.code()}, Error: $errorBody")
+
+                val errorMessage = parseErrorMessage(errorBody) ?: "Unexpected error occurred"
+                Resource.Error(errorMessage)
+            }
+        } catch (e: Exception) {
+            Log.d("error exp","--->login ${e.message}")
+            Resource.Error("Network Error: ${e.message}")
+        }catch (e: SocketTimeoutException) {
+            Resource.Error("Server timeout, please try again later")
+        } catch (e: UnknownHostException) {
+            Resource.Error("No internet connection, please check your network")
+        } catch (e: HttpException) {
+            Resource.Error("Server error, please try again later")
+        } catch (e: IOException) {
+            Resource.Error("Network connection issue, please check your internet")
+        }
+    }
+
+    suspend fun verifyMobileNumber(pin: String, mobilenumber: String): Resource<LoginResponse> {
+        return try {
+            val mobileNumber="+91$mobilenumber"
+            Log.d("verifyMobileNumber","--->verifyMobileNumber repository $mobileNumber..$pin")
+            val response = apiService1.verifyNumber(VerifyRequest(mobileNumber,pin))
+            if (response.isSuccessful) {
+                Resource.Success(response.body()!!)
+            } else {
+
+                val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                Log.d("Login Error", "Response Code: ${response.code()}, Error: $errorBody")
+
+                val errorMessage = parseErrorMessage(errorBody) ?: "Unexpected error occurred"
+                Resource.Error(errorMessage)
+            }
+        } catch (e: Exception) {
+            Log.d("error exp","--->login ${e.message}")
+            Resource.Error("Network Error: ${e.message}")
+        }catch (e: SocketTimeoutException) {
+            Resource.Error("Server timeout, please try again later")
+        } catch (e: UnknownHostException) {
+            Resource.Error("No internet connection, please check your network")
+        } catch (e: HttpException) {
+            Resource.Error("Server error, please try again later")
+        } catch (e: IOException) {
+            Resource.Error("Network connection issue, please check your internet")
+        }
+    }
+
+
+    suspend fun resend(mobilenumber: String?): Resource<ResponseData> {
+        return try {
+            val response = apiService1.resend(LoginRequest(mobilenumber!!))
+            if (response.isSuccessful) {
+                Resource.Success(response.body()!!)
+            } else {
+
+                val errorBody = response.errorBody()?.string() ?: "Unknown error"
+                Log.d("Login Error", "Response Code: ${response.code()}, Error: $errorBody")
+
+                val errorMessage = parseErrorMessage(errorBody) ?: "Unexpected error occurred"
+                Resource.Error(errorMessage)
+            }
+        } catch (e: Exception) {
+            Log.d("error exp","--->login ${e.message}")
+            Resource.Error("Network Error: ${e.message}")
+        }catch (e: SocketTimeoutException) {
+            Resource.Error("Server timeout, please try again later")
+        } catch (e: UnknownHostException) {
+            Resource.Error("No internet connection, please check your network")
+        } catch (e: HttpException) {
+            Resource.Error("Server error, please try again later")
+        } catch (e: IOException) {
+            Resource.Error("Network connection issue, please check your internet")
+        }
+    }
+    // Helper function to parse error message
+    private fun parseErrorMessage(errorBody: String?): String? {
+        return try {
+            val jsonObject = JSONObject(errorBody ?: "")
+            jsonObject.optString("message", null)  // Extract "message" from the error body
+        } catch (e: JSONException) {
+            null
+        }
+    }
 }
+
 

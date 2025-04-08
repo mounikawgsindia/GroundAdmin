@@ -13,9 +13,8 @@
         <action
             android:id="@+id/action_loginFragment_to_registrationFragment"
             app:destination="@id/registrationFragment"
-          />
+            />
 
-        <!-- Action to OTPVerificationFragment with argument -->
         <action
             android:id="@+id/action_loginFragment_to_otpVerificationFragment"
             app:destination="@id/otp_verification_fragment">

@@ -4,6 +4,7 @@ plugins {
     id("kotlin-kapt") // Required for Hilt
     id("dagger.hilt.android.plugin") // Hilt Plugin
     id("androidx.navigation.safeargs.kotlin")
+
 }
 
 android {
@@ -14,7 +15,7 @@ android {
     }
     defaultConfig {
         applicationId = "com.wingspan.groundowner"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -50,6 +51,14 @@ android {
 }
 
 dependencies {
+
+
+    implementation("androidx.core:core-splashscreen:1.0.1")
+//googleplay service api
+    implementation ("com.google.android.gms:play-services-location:21.3.0")
+    //glide
+    implementation ("com.github.bumptech.glide:glide:4.16.0")
+    implementation("com.google.firebase:firebase-messaging:24.1.1")
     // Retrofit + OkHttp
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
@@ -65,7 +74,8 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.7.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.constraintlayout:constraintlayout:2.2.1")
-
+    // Facebook Shimmer Layout
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
     // Navigation Component
     implementation("androidx.navigation:navigation-fragment-ktx:2.8.9")
     implementation("androidx.navigation:navigation-ui-ktx:2.8.9")

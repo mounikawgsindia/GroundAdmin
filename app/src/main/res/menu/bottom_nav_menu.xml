@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/nav_dashboard"
+        android:icon="@drawable/dashboard_icon"
+        android:title="DashBoard"/>
+
+    <item
+        android:id="@+id/nav_grounds"
+        android:icon="@drawable/images_icon"
+        android:title="Grounds"/>
+
+    <item
+        android:id="@+id/nav_payments"
+    android:icon="@drawable/payments_icon"
+    android:title="Payments"/>
+
+</menu>

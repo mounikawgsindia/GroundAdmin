@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    app:cardUseCompatPadding="true"
+    app:cardCornerRadius="5dp"
+    app:cardElevation="2dp"
+    android:clickable="true"
+    android:layout_margin="10dp"
+
+    android:padding="10dp"
+    >
+
+    <LinearLayout
+        android:id="@+id/patientLL"
+        android:layout_width="396dp"
+        android:layout_height="177dp"
+        android:background="#B3B3B3"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:weightSum="2">
+
+        <!-- Horizontal Text View -->
+        <TextView
+            android:id="@+id/patientTV"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|start"
+            android:layout_weight="1"
+            android:background="#B3B3B3"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:textColor="@color/white"
+
+            android:textSize="18sp"
+            android:textStyle="bold" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0.1" />
+
+        <TextView
+            android:id="@+id/dataTV"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#B3B3B3"
+            android:textSize="16dp" />
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
+

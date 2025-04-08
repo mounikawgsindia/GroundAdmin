@@ -28,5 +28,7 @@
         <color name="backgroundColor">#FFFFFF</color>
         <color name="edittext_bc">#d9e6dd</color>
         <color name="text_green">#44704c</color>
+        <color name="background_grey">#eeeeee</color>
+        <color name="sports_text">#818181</color>
 
 </resources>
