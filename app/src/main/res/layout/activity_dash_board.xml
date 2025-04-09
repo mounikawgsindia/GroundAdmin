@@ -10,16 +10,19 @@
         android:id="@+id/fragmentContainerView"
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
         app:defaultNavHost="true"
-        app:navGraph="@navigation/nav_bottom_graph" />
+        app:navGraph="@navigation/nav_bottom_graph"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="4dp"
-        android:background="@drawable/shadow_background"
-        tools:layout_editor_absoluteY="574dp"
-        tools:ignore="MissingConstraints" />
+<!--    <View-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="4dp"-->
+<!--        android:background="@drawable/shadow_background"-->
+<!--        tools:layout_editor_absoluteY="574dp"-->
+<!--        tools:ignore="MissingConstraints" />-->
+
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigationView"
@@ -33,7 +36,9 @@
         app:itemRippleColor="@android:color/transparent"
         app:itemTextColor="@color/bottom_nav_color"
         app:labelVisibilityMode="labeled"
-        app:layout_anchor="@id/fragmentContainerView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:menu="@menu/bottom_nav_menu"
         tools:ignore="MissingConstraints"
         tools:layout_editor_absoluteY="578dp" />

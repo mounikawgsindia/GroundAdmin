@@ -44,4 +44,7 @@
     <string name="price_per_hour">Price Per Hour(₹)</string>
     <string name="box_cricket_tennis_football_and_turff_cricket_court">box cricket, Tennis, Football and Turff Cricket Court</string>
     <string name="image">image</string>
+    <string name="ground_name">Ground Name :</string>
+    <string name="address">Address</string>
+    <string name="sample_ground_name">Sample Ground Name</string>
 </resources>

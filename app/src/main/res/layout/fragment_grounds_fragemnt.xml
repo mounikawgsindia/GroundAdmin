@@ -44,6 +44,7 @@
         app:shimmer_repeat_mode="restart"
         app:shimmer_shape="linear"
         tools:ignore="MissingClass"
+        android:visibility="gone"
         app:layout_constraintTop_toBottomOf="@+id/totalground"
         app:layout_constraintBottom_toTopOf="@id/btnAddItem"
         app:layout_constraintStart_toStartOf="parent"
@@ -74,7 +75,9 @@
         app:layout_constraintBottom_toTopOf="@id/btnAddItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@layout/custom_add_ground" />
+        android:importantForAccessibility="no"
+        tools:listitem="@layout/custom_add_ground"
+        tools:itemCount="3"/>
 
     <!-- No Internet Layout (Hidden by Default) -->
     <LinearLayout
@@ -85,7 +88,8 @@
         android:gravity="center"
         android:padding="16dp"
         android:visibility="gone"
-        app:layout_constraintTop_toBottomOf="@id/groundrv"
+        android:layout_marginBottom="15dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@+id/btnAddItem"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
@@ -119,7 +123,7 @@
         app:iconGravity="textStart"
         app:iconPadding="8dp"
         app:backgroundTint="@color/green"
-        android:layout_marginBottom="85dp"
+        android:layout_marginBottom="15dp"
         android:layout_marginEnd="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

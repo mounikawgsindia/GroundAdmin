@@ -122,6 +122,7 @@
             } else {
                binding.noInternetLayout.visibility=View.VISIBLE
                binding.btnAddItem.visibility=View.GONE
+
             }
         }
 
@@ -356,10 +357,17 @@
         private fun handleCitySuccess(data: CityResponse?) {
             Log.e(" handleCitySuccess", "---> $data")
             citiesSpinnerList.clear()
-            data?.cities?.forEach {city->
-                citiesSpinnerList.add(city.name!!)
+
+            citiesList?.let { list ->
+                list.clear()
+                data?.cities?.let { cities ->
+                    cities.forEach { city ->
+                        citiesSpinnerList.add(city.name ?: "")
+                    }
+                    list.addAll(cities)
+                }
             }
-            citiesList!!.addAll(data!!.cities)
+
             val adapter = ArrayAdapter(requireContext(), R.layout.simple_spinner_item, citiesSpinnerList)
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
             alertBinding?.citySpinner?.adapter = adapter
@@ -391,10 +399,17 @@
         private fun handleGetAreaSuccess(data: AreaResponse?) {
             Log.d("get handleGetGroundSuccess","response--->${data}")
             areasSpinnerList.clear()
-            data?.areas?.forEach {area->
-                areasSpinnerList.add(area.name!!)
+
+            areasList?.let { list ->
+                list.clear()
+                data?.areas?.let { areas ->
+                    areas.forEach { area ->
+                        areasSpinnerList.add(area.name ?: "")
+                    }
+                    list.addAll(areas)
+                }
             }
-            areasList?.addAll(data!!.areas)
+
             setAreaSpinners()
 
         }
@@ -777,11 +792,11 @@
             super.onDestroyView()
             _binding = null
             // Only clear lists if they are initialized
-            //citiesList?.clear()
+            citiesList?.clear()
             areasList?.clear()
 
             // Avoid memory leaks by nullifying the lists
-            //citiesList = null
+            citiesList = null
             areasList = null
         }
 }

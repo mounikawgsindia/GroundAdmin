@@ -26,14 +26,15 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ground Name : "
+                android:text="@string/ground_name"
                 style="@style/SmallTextStyle_black"
+                tools:text="Sample Ground Name"
                 android:layout_marginBottom="8dp" />
             <TextView
                 android:id="@+id/groundName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text=""
+                tools:text="Sample Ground Name"
                 style="@style/SmallTextStyle_black"
                 android:layout_marginBottom="4dp" />
         </LinearLayout>
@@ -46,14 +47,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Address : "
+            android:text="@string/address"
            style="@style/SmallTextStyle_black"
             android:layout_marginBottom="8dp" />
         <TextView
             android:id="@+id/address"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="123 Main Street"
+            android:text="@string/sample_ground_name"
             style="@style/SmallTextStyle_black"
             android:layout_marginBottom="4dp" />
     </LinearLayout>
@@ -129,8 +130,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:scrollbars="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:layoutManager="LinearLayoutManager"
+            tools:itemCount="2"
             tools:listitem="@layout/custom_ground_image_layout"
-            android:orientation="horizontal" />
+             />
         <!-- Add Item Button (Fixed at the bottom) -->
 
         <LinearLayout

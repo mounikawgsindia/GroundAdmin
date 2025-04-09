@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         // Classpath for the Safe Args plugin
-        classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.9")
+       // classpath("androidx.navigation:navigation-safe-args-gradle-plugin:2.8.9")
 
         // Other classpaths for the plugins used in the project
         classpath("com.android.tools.build:gradle:8.2.2")

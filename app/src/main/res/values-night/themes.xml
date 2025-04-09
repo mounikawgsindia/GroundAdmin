@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.GroundOwner" parent="Theme.Material3.DayNight.NoActionBar">
+    <style name="Base.Theme.GroundOwner" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/primaryColor</item>
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="android:colorBackground">@color/backgroundColor</item>
