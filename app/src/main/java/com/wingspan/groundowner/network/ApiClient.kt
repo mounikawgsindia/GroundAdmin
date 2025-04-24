@@ -7,17 +7,26 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiClient {
     //BuildConfig.BASE_URL
+    //https://ground-owner.onrender.com/
+    val okHttpClient = OkHttpClient.Builder()
+        .connectTimeout(60, TimeUnit.SECONDS)   // Connection timeout
+        .readTimeout(60, TimeUnit.SECONDS)      // Server read timeout
+        .writeTimeout(60, TimeUnit.SECONDS)     // Client write timeout
+        .build()
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://ground-owner.onrender.com/") // Ensure BASE_URL is defined in gradle.properties
+            .baseUrl("https://ground-booking-live-scores.onrender.com")
+            .client(okHttpClient)// Ensure BASE_URL is defined in gradle.properties
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }

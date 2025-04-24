@@ -29,6 +29,7 @@ class DashBoardActivity : AppCompatActivity() {
                 R.id.nav_dashboard ->navController.navigate(R.id.dashBoardFragment)
                 R.id.nav_grounds -> navController.navigate(R.id.groundsFragemnt)
                 R.id.nav_payments -> navController.navigate(R.id.paymentsFragment)
+                R.id.nav_booking -> navController.navigate(R.id.bookingFragment)
 
             }
             true

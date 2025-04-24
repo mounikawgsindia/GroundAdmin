@@ -8,20 +8,15 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import android.view.Gravity
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.Fragment
-import com.google.android.material.bottomnavigation.BottomNavigationView
-
 import com.wingspan.groundowner.R
-import com.wingspan.groundowner.activities.DashBoardActivity
 import com.wingspan.groundowner.activities.MainActivity
 import com.wingspan.groundowner.databinding.AlertSettingDialogBinding
 import com.wingspan.groundowner.databinding.FragmentDashBoardBinding
-
-
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
 import com.wingspan.groundowner.utils.UserPreferences
 import dagger.hilt.android.AndroidEntryPoint

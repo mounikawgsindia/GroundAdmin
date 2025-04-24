@@ -1,6 +1,7 @@
 package com.wingspan.groundowner.adapters
 
 import GetGround
+import ImageUrl
 
 import android.content.Context
 import android.content.Intent
@@ -23,6 +24,9 @@ class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, 
     RecyclerView.Adapter<GroundAdapter.ViewHolder> () {
 
     lateinit var alertDialog:AlertDialog
+
+   // var imagesList = listOf("https://wingspan-s3bucket.s3.amazonaws.com/uploads/1743917859758_ground1.jpg","https://wingspan-s3bucket.s3.eu-north-1.amazonaws.com/uploads/1743918199901_ground2.jpeg","https://wingspan-s3bucket.s3.eu-north-1.amazonaws.com/uploads/1743918067774_ground1.jpg")
+    lateinit var adapter:IntroSlidesAdapter
     class ViewHolder(var binding: CustomAddGroundBinding) : RecyclerView.ViewHolder(binding.root) {
 
     }
@@ -42,17 +46,18 @@ class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, 
             val listData = groundsList.get(position)
             groundName.text=listData.groundHeading
             address?.text = listData.groundAddress
-            facilities.text=listData.facilities
-            cost.text=listData.pricePerHour.toString()
-            sportsType.text=listData.sportsType
+//            facilities.text=listData.facilities
+//            cost.text=listData.pricePerHour.toString()
+//            sportsType.text=listData.sportsType
 
 
-            // Set up RecyclerView for images
             imagesRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-            //imagesRecyclerView.adapter = ImageAdapter(listData.imageUrls, listData.groundHeading)
-//            rightArrow.setDebouncedClickListener() {
-//                alertDialogUpdate(listData.clgId, listData.clgName)
-//            }
+           // imageURl= ArrayList(listData.imageUrl)
+            adapter = IntroSlidesAdapter(context, listData.imageUrl, navController, listData)
+            imageViewPager.adapter = adapter
+            circleIndicator1.setViewPager(imageViewPager)
+
+
             btnDelete.setDebouncedClickListener(){
                 deleteDialog(listData.id)
             }

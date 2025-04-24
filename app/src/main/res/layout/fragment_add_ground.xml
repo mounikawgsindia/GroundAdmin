@@ -7,11 +7,7 @@
     tools:context=".fragments.AddGroundFragment"
     android:background="@drawable/white_bg">
 
-<!--    <LinearLayout-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        android:padding="16dp">-->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -52,8 +48,8 @@
             <!-- Cross Icon (ImageView) -->
             <ImageView
                 android:id="@+id/crossIcon"
-                android:layout_width="36dp"
-                android:layout_height="36dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="10dp"
                 android:src="@drawable/close_white"

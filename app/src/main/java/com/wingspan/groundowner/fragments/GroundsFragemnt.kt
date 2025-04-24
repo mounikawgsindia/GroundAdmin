@@ -195,12 +195,15 @@
                             shimmerLayout.stopShimmer()
                             shimmerLayout.visibility = View.GONE
                             groundrv.visibility = View.VISIBLE
+                            if(resource.message.equals("Invalid or expired token"))
+                            {
+                                sharedPreferences.logoutAdmin()
+                                val intent = Intent(requireContext(), MainActivity::class.java)
+                                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                                startActivity(intent)
+                                requireActivity().finish()
+                            }
 
-//                            sharedPreferences.logoutAdmin()
-//                            val intent = Intent(requireContext(), MainActivity::class.java)
-//                            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-//                            startActivity(intent)
-//                            requireActivity().finish()
                         }
 
                         handleLoginError(resource.message)}
@@ -387,7 +390,7 @@
         private fun handlePostgroundSuccess(data: PostGroundsResponse?) {
             dialog.dismiss()
             binding.groundcount.text= "("+gropundList.size.toString()+")"
-            Log.d("get handleGetGroundSuccess","response--->${data?.ground?.areaId}")
+            Log.d("get handleGetGroundSuccess","response--->${data?.ground?.areaName}")
             groundAdapter.addItem(data?.ground!!)
 
 
@@ -702,12 +705,13 @@
                     val jsonFormat = gson.toJson(selectedTimeSlots)
 
 
-                    Log.d("time slots", "time slot --> ${jsonFormat}")
+                    Log.d("time slots", "time slot --> ${addImagesList.size}")
 
 
                     if(selectedTimeSlots.isNotEmpty())
                     {
-                        if(addImagesList.size >=0)
+
+                        if(addImagesList.size >0 && imageNamesList.size >0)
                         {
                             viewModel.validInputs(priceperhouret.text.toString(),venueruleset.text.toString(),venueet.text.toString(),
                                 facilitieset.text.toString(),pincodeet.text.toString(),areaId,cityId,maplinket.text.toString(),groundaddresset.text.toString(),sportstypeet.text.toString(),

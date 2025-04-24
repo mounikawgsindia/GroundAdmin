@@ -9,6 +9,10 @@
         android:id="@+id/nav_grounds"
         android:icon="@drawable/images_icon"
         android:title="Grounds"/>
+    <item
+        android:id="@+id/nav_booking"
+        android:icon="@drawable/payments_icon"
+        android:title="Bokkings"/>
 
     <item
         android:id="@+id/nav_payments"

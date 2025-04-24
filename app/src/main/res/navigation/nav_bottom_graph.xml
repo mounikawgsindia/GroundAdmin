@@ -11,6 +11,11 @@
         android:label="fragment_dash_board"
         tools:layout="@layout/fragment_dash_board" />
     <fragment
+        android:id="@+id/bookingFragment"
+        android:name="com.wingspan.groundowner.fragments.BookingsFragment"
+        android:label="fragment_bookings"
+        tools:layout="@layout/fragment_bokkings" />
+    <fragment
         android:id="@+id/groundsFragemnt"
         android:name="com.wingspan.groundowner.fragments.GroundsFragemnt"
         android:label="fragment_grounds_fragemnt"

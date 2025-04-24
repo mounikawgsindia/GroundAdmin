@@ -4,7 +4,7 @@ plugins {
     id("kotlin-kapt") // Required for Hilt
     id("dagger.hilt.android.plugin") // Hilt Plugin
     id("androidx.navigation.safeargs.kotlin")
-
+    id ("kotlin-parcelize")
 }
 
 android {
@@ -52,7 +52,9 @@ android {
 
 dependencies {
 
-
+    implementation("com.facebook.shimmer:shimmer:0.5.0")
+    //circular indicator
+    implementation ("me.relex:circleindicator:2.1.6")
     implementation("androidx.core:core-splashscreen:1.0.1")
 //googleplay service api
     implementation ("com.google.android.gms:play-services-location:21.3.0")

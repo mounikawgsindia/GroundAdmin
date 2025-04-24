@@ -7,9 +7,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.wingspan.groundowner.R
+import com.wingspan.groundowner.adapters.IntroSlidesAdapter
 import com.wingspan.groundowner.databinding.FragmentDisplayGroundBinding
 
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
@@ -20,6 +22,10 @@ class DisplayGroundFragment : Fragment() {
 
     private var _binding: FragmentDisplayGroundBinding? = null
     private val binding get() = _binding!!
+
+    lateinit var adapter: IntroSlidesAdapter
+    lateinit var navController: NavController
+    //var imagesList = listOf("https://wingspan-s3bucket.s3.amazonaws.com/uploads/1743917859758_ground1.jpg","https://wingspan-s3bucket.s3.eu-north-1.amazonaws.com/uploads/1743918199901_ground2.jpeg","https://wingspan-s3bucket.s3.eu-north-1.amazonaws.com/uploads/1743918067774_ground1.jpg")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -31,6 +37,7 @@ class DisplayGroundFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        navController = findNavController()
         setUI()
 
     }
@@ -47,14 +54,20 @@ class DisplayGroundFragment : Fragment() {
                     sportstype.text = it.sportsType
                     amentieslisttv.text = it.facilities
                     venuerulestv.text =it.venueRules
-                    citynametv.text = it.cityId.toString()
+                    citynametv.text = it.cityName.toString()
 
-                    areatv.text = it.areaId.toString()
+                    areatv.text = it.areaName.toString()
                     pincodetv.text = it.pincode
                     addresstv.text = it.groundAddress
                     locationtv.text = it.groundLocationLink
                     pricetv.text = it.pricePerHour.toString()
-                   // slotstv.text = it.slots
+                    slotstv.text=it.slots?.joinToString(separator = " , ")?:""
+
+
+                //adpter
+                adapter = IntroSlidesAdapter(requireContext(),getGround.imageUrl , navController, getGround)
+                imageViewPager.adapter = adapter
+                circleIndicator1.setViewPager(imageViewPager)
 
             }
 

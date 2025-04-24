@@ -37,6 +37,9 @@ class GroundsViewModel @Inject constructor(private val repository: GroundReposit
     private val _postGroundStatus = MutableLiveData<Resource<PostGroundsResponse>>()
     val postGroundStatus: LiveData<Resource<PostGroundsResponse>> get() = _postGroundStatus
 
+    //booing status
+   // private val _bookingStatus= MutableLiveData<Resource<Book>>
+
 
 //delete ground
     private val _deleteGroundStatus = MutableLiveData<Resource<DeleteResponse>>()
@@ -159,4 +162,9 @@ class GroundsViewModel @Inject constructor(private val repository: GroundReposit
         }
 
     }
+
+//    fun bookingData(){
+//
+//    }
+
 }

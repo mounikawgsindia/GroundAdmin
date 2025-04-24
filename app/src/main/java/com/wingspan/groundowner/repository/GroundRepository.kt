@@ -187,13 +187,12 @@ class GroundRepository @Inject constructor(private val apiService1: ApiService,p
             val sportsType = sportstypeet.toRequestBody("text/plain".toMediaTypeOrNull())
             val groundHeading = groundheadinget.toRequestBody("text/plain".toMediaTypeOrNull())
 
-// Assuming `selectedTimeSlots` is a MutableList<Slot>
+
             val gson = Gson()
 
-// Convert selectedTimeSlots to JSON string
+
             val jsonSlots = gson.toJson(selectedTimeSlots)
 
-// Create a RequestBody from the JSON string
             val slotsRequestBody = jsonSlots.toRequestBody("application/json".toMediaTypeOrNull())
             val response = apiService1.postGroundDetails(tokenVarible, pricePerHour, pincode, area,
                 city, venueRules, aboutVenue, sportsType, facilities, groundHeading, groundAddress, locationLink,

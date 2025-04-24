@@ -1,5 +1,7 @@
+import android.os.Parcelable
 import java.io.Serializable
 
+import kotlinx.parcelize.Parcelize
 data class LoginRequest(
     val phoneNumber: String
 )
@@ -94,7 +96,7 @@ data class GetGround(
     val id: Int,
     val userId: Int,
     val phoneNumber: String,
-    
+    val imageUrl: List<String>,
     val groundLocationLink: String,
     val groundAddress: String,
     val groundHeading: String,
@@ -103,14 +105,32 @@ data class GetGround(
     val aboutVenue: String,
     val venueRules: String,
     val createdAt: String,
+    val cityName: String?,
+    val areaName: String?,
     val cityId: Int?,
     val areaId: Int?,
     val pincode: String?,
+    val slots: List<String>?,
     val pricePerHour: Int
 ):Serializable
 data class Slot(
     val start: String,
     val end: String
 )
+data class ImageUrl(
+    val name: String
+)
 
+@Parcelize
+data class BookingModel(
+    val user: String,
+    val ground: String,
+    val bookingId: String,
+    val slots: String,
+    val amount: String,
+    val sports: String,
+    val status: String,
+    val date: String,
+    val created: String
+): Parcelable
 
