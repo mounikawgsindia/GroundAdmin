@@ -21,6 +21,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class GroundsViewModel @Inject constructor(private val repository: GroundRepository): ViewModel() {
+
+    var itemToDeletePosition: Int? = null
     // city status
     private val _cityStatus = MutableLiveData<Resource<CityResponse>>()
     val cityStatus: LiveData<Resource<CityResponse>> get() = _cityStatus
@@ -150,7 +152,7 @@ class GroundsViewModel @Inject constructor(private val repository: GroundReposit
         groundheadinget: String,
         imageNamesList: ArrayList<String>,
         addImagesList: ArrayList<Uri>,
-        selectedTimeSlots: MutableList<Slot>
+        selectedTimeSlots: ArrayList<String>
     )
     {
         _postGroundStatus.value = Resource.Loading() // Show loading state

@@ -15,7 +15,6 @@
     import android.app.Activity
     import android.content.ContentResolver
     import android.content.Intent
-    import android.content.SharedPreferences
     import android.content.pm.PackageManager
     import android.graphics.Color
     import android.graphics.drawable.ColorDrawable
@@ -45,7 +44,6 @@
     import com.google.android.gms.common.ConnectionResult
     import com.google.android.gms.common.GoogleApiAvailability
     import com.google.android.gms.location.LocationServices
-    import com.google.android.material.bottomnavigation.BottomNavigationView
     import com.google.gson.Gson
     import com.wingspan.groundowner.activities.MainActivity
     import com.wingspan.groundowner.adapters.GroundAdapter
@@ -87,7 +85,7 @@
         var areasList:ArrayList<Area>? = ArrayList()
         val areasSpinnerList = ArrayList<String>()
         lateinit var dialog:AlertDialog
-        val selectedTimeSlots = mutableListOf<Slot>()
+        val selectedTimeSlots = ArrayList<String>()
         private lateinit var navController: NavController
 
         @Inject
@@ -395,9 +393,13 @@
 
 
         }
-        private fun handleDeleteGroundSuccess(data: String) {
-            Log.e(" handleDeleteGroundSuccess", "---> $data")
-           // groundAdapter.deleteItem()
+        private fun handleDeleteGroundSuccess(message: String) {
+            Log.e(" handleDeleteGroundSuccess", "---> ")
+            viewModel.itemToDeletePosition?.let {
+                groundAdapter.deleteItem(it)
+                viewModel.itemToDeletePosition = null // clear after use
+            }
+
         }
         private fun handleGetAreaSuccess(data: AreaResponse?) {
             Log.d("get handleGetGroundSuccess","response--->${data}")
@@ -694,10 +696,11 @@
                     selectedTimeSlots.clear() // Clear previous selections before adding new ones
                     checkBoxes.forEachIndexed { index, checkBox ->
                         if (checkBox.isChecked) {
-                            val timeParts = timeSlots[index].split(" - ")
-                            if (timeParts.size == 2) {
-                                selectedTimeSlots.add(Slot(timeParts[1], timeParts[0])) // Store as object
-                            }
+//                            val timeParts = timeSlots[index].split(" - ")
+//                            if (timeParts.size == 2) {
+//
+//                            }
+                            selectedTimeSlots.add(timeSlots[index]) // Store as object
                         }
                     }
                     val gson = Gson()

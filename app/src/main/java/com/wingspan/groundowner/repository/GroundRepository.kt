@@ -120,7 +120,7 @@ class GroundRepository @Inject constructor(private val apiService1: ApiService,p
 
         val token=sharedpreferences.getToken()
         val tokenVarible="Bearer ${token}"
-        Log.d("deleteGround","--->deleteGround repository ${tokenVarible}")
+        Log.d("deleteGround","--->deleteGround repository ${tokenVarible},,,${id}")
         return try {
             val response = apiService1.deleteGround(tokenVarible,id)
             //response.isSuccessful means 200 to 299
@@ -160,7 +160,7 @@ class GroundRepository @Inject constructor(private val apiService1: ApiService,p
         groundheadinget: String,
         imageNamesList: ArrayList<String>,
         addImagesList: ArrayList<Uri>,
-        selectedTimeSlots: MutableList<Slot>
+        selectedTimeSlots: ArrayList<String>
     ): Resource<PostGroundsResponse> {
 
         val token=sharedpreferences.getToken()

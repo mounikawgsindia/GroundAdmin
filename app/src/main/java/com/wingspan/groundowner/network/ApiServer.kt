@@ -63,9 +63,9 @@ interface ApiService {
     @GET("owner/images")
     suspend fun getGroundData(@Header("Authorization")token:String): Response<GetGroundsResponse>
 
-    //get ground data
-    @DELETE("owner/images")
-    suspend fun deleteGround(@Header("Authorization")token:String,@Query("groundId")groundId:Int): Response<DeleteResponse>
+    //delete ground data
+    @DELETE("owner/images/{imageId}")
+    suspend fun deleteGround(@Header("Authorization")token:String,@Path("imageId")groundId:Int): Response<DeleteResponse>
 
 
     //post ground images

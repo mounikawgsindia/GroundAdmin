@@ -59,6 +59,7 @@ class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, 
 
 
             btnDelete.setDebouncedClickListener(){
+                viewModel.itemToDeletePosition = listData.id
                 deleteDialog(listData.id)
             }
             rowLl.setDebouncedClickListener {
