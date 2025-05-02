@@ -3,6 +3,7 @@ package com.wingspan.groundowner.network
 
 
 import AreaResponse
+import BookingResponse
 import CityResponse
 import DeleteResponse
 import GetGroundsResponse
@@ -90,4 +91,7 @@ interface ApiService {
 
     ): Response<PostGroundsResponse>
 
+
+    @GET("api/payments/owner/bookings")
+    suspend fun groundBooking(@Header("Authorization")token:String): Response<BookingResponse>
 }

@@ -1,0 +1,389 @@
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/row_ll"
+    android:background="@drawable/bottom_sheet_bg"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="16dp">
+
+    <!-- Order Details Text -->
+    <TextView
+        android:id="@+id/ordertv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="OrderDetails"
+        android:layout_marginTop="4dp"
+        style="@style/NormalTextStyle_black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@android:color/black" />
+
+    <!-- Vertical Text Container -->
+    <LinearLayout
+        android:id="@+id/text_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="10dp"
+        app:layout_constraintTop_toBottomOf="@id/ordertv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <!-- Ground Name -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ground Name"
+                style="@style/SmallTextStyle_black"
+                android:layout_marginEnd="16dp" />
+
+            <TextView
+                android:id="@+id/groundnametv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/NormalTextStyle_black"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+
+        </LinearLayout>
+        <!-- Sports Type -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sports Type : "
+                style="@style/SmallTextStyle_black"
+                android:layout_marginEnd="16dp" />
+            <TextView
+                android:id="@+id/sportstypetv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                style="@style/SmallTextStyle_grey"
+                android:textStyle="bold"
+                android:textColor="@android:color/black" />
+        </LinearLayout>
+        <!-- Slots -->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Slots : "
+                style="@style/SmallTextStyle_black"
+                android:layout_marginEnd="16dp" />
+            <TextView
+                android:id="@+id/slotstv"
+                style="@style/SmallTextStyle_black"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:textStyle="bold"
+                />
+        </LinearLayout>
+        <!-- Price -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price : "
+                android:layout_marginEnd="16dp"
+                style="@style/SmallTextStyle_black"/>
+            <TextView
+                android:id="@+id/pricetv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Price"
+                android:textStyle="bold"
+                android:layout_marginStart="2dp"
+                style="@style/SmallTextStyle_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PhoneNumber : "
+                android:layout_marginEnd="16dp"
+                style="@style/SmallTextStyle_black"/>
+            <TextView
+                android:id="@+id/numbertv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textStyle="bold"
+                style="@style/SmallTextStyle_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Email : "
+                android:layout_marginEnd="16dp"
+                style="@style/SmallTextStyle_black"/>
+            <TextView
+                android:id="@+id/emailtv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textStyle="bold"
+                style="@style/SmallTextStyle_black" />
+
+        </LinearLayout>
+        <!-- Time -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date :"
+                android:layout_marginEnd="16dp"
+                style="@style/SmallTextStyle_black"/>
+            <TextView
+                android:id="@+id/timetv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textStyle="bold"
+                style="@style/SmallTextStyle_black" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="6dp"
+            android:layout_marginStart="6dp"
+            app:layout_constraintStart_toEndOf="@id/payment_img"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/statusll">
+
+            <!-- Add any views inside this LinearLayout -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Status :"
+                android:layout_marginEnd="16dp"
+                style="@style/SmallTextStyle_black"/>
+            <TextView
+                android:id="@+id/statutv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Time"
+                android:textStyle="bold"
+                style="@style/SmallTextStyle_black" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!-- Divider -->
+    <View
+        android:id="@+id/divider"
+        android:layout_width="0dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/background_grey"
+        app:layout_constraintTop_toBottomOf="@id/text_container"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <!-- Payment Details Text -->
+    <TextView
+        android:id="@+id/paymenttv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Payment Details"
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        style="@style/NormalTextStyle_black"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider"
+        android:textColor="@android:color/black" />
+
+    <!-- Payment Image -->
+    <ImageView
+        android:id="@+id/payment_img"
+        android:layout_width="99dp"
+        android:layout_height="81dp"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/rounded_rect"
+        android:clipToOutline="true"
+        android:outlineProvider="background"
+        android:scaleType="centerCrop"
+        android:src="@drawable/ground"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/paymenttv" />
+
+    <!-- New Horizontal LinearLayout next to ImageView -->
+    <LinearLayout
+        android:id="@+id/linearLayoutHorizontal"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/payment_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/paymenttv">
+
+        <!-- Add any views inside this LinearLayout -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="paymentType"
+            style="@style/SmallTextStyle_black"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/paymenttypetv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SmallTextStyle_black"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/statusll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/payment_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/linearLayoutHorizontal">
+
+        <!-- Add any views inside this LinearLayout -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Status "
+            style="@style/SmallTextStyle_black"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/statustv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SmallTextStyle_black"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp" />
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/createdll"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:layout_marginStart="6dp"
+        app:layout_constraintStart_toEndOf="@id/payment_img"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/statusll">
+
+        <!-- Add any views inside this LinearLayout -->
+        <TextView
+            android:id="@+id/textview1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Created At"
+            style="@style/SmallTextStyle_black"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/createdtv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/SmallTextStyle_black"
+            android:textStyle="bold"
+            android:layout_marginEnd="16dp" />
+
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

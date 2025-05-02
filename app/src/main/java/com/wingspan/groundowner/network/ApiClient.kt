@@ -16,17 +16,26 @@ import javax.inject.Singleton
 @Module
 @InstallIn(SingletonComponent::class)
 object ApiClient {
-    //BuildConfig.BASE_URL
+
     //https://ground-owner.onrender.com/
     val okHttpClient = OkHttpClient.Builder()
         .connectTimeout(60, TimeUnit.SECONDS)   // Connection timeout
         .readTimeout(60, TimeUnit.SECONDS)      // Server read timeout
         .writeTimeout(60, TimeUnit.SECONDS)     // Client write timeout
         .build()
+
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl("https://ground-booking-live-scores.onrender.com")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)// Ensure BASE_URL is defined in gradle.properties
+            .addConverterFactory(GsonConverterFactory.create())
+            .build()
+    }
+
+    private val retrofitGroundOwner by lazy {
+        Retrofit.Builder()
+            .baseUrl("https://ground-booking-live-scores-main12.onrender.com/")
+            .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
@@ -38,4 +47,8 @@ object ApiClient {
     @Provides
     @Singleton
     fun provideApiService(): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    @Singleton
+    fun provideGroundOwnerApi(): OwnerApiService  = retrofitGroundOwner.create(OwnerApiService ::class.java)
 }

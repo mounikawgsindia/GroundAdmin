@@ -71,27 +71,7 @@ data class PostGroundsResponse(
     val message: String,
     val ground: GetGround
 )
-//
-//data class GetGround1(
-//    val id: Int,
-//    val imageUrl: List<String>,
-//    val imageName: List<String>,
-//    val userId: Int,
-//    val phoneNumber: String,
-//    val groundLocationLink: String,
-//    val groundAddress: String,
-//    val groundHeading: String,
-//    val facilities: String,
-//    val sportsType: String,
-//    val aboutVenue: String,
-//    val venueRules: String,
-//    val createdAt: String,
-//    val cityId: Int?,
-//    val areaId: Int?,
-//    val pincode: String?,
-//    val slots: List<Slot>?,
-//    val pricePerHour: Int
-//)
+
 data class GetGround(
     val id: Int,
     val userId: Int,
@@ -121,16 +101,45 @@ data class ImageUrl(
     val name: String
 )
 
+//@Parcelize
+//data class BookingModel(
+//    val user: String,
+//    val ground: String,
+//    val bookingId: String,
+//    val slots: String,
+//    val amount: String,
+//    val sports: String,
+//    val status: String,
+//    val date: String,
+//    val created: String
+//): Parcelable
+
+data class BookingResponse(
+    val success: Boolean,
+    val bookings: List<Booking>
+)
 @Parcelize
-data class BookingModel(
-    val user: String,
-    val ground: String,
-    val bookingId: String,
-    val slots: String,
-    val amount: String,
-    val sports: String,
+data class Booking(
+    val id: Int,
+    val userId: Int,
+    val groundId: Int,
+    val ownerId: Int,
+    val PhoneNumber: String,
+    val slots: String, // or List<String> if you parse it further
+    val totalAmount: Int,
+    val sport: String,
     val status: String,
     val date: String,
-    val created: String
+    val createdAt: String,
+    val updatedAt: String,
+    val user: User
 ): Parcelable
+@Parcelize
 
+
+data class User(
+    val id: Int,
+    val username: String,
+    val email: String,
+    val phoneNumber: String
+): Parcelable

@@ -21,13 +21,19 @@ android {
         versionName = "1.0"
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
 
-        // Ensure BuildConfig is enabled
-        buildConfigField("String", "BASE_URL", "\"https://geo-tagging-attendence.onrender.com/\"")
     }
 
     buildTypes {
+        debug {
+
+            buildConfigField("String", "BASE_URL", "\"https://ground-booking-live-scores.onrender.com/\"")
+        }
+
         release {
-            isMinifyEnabled = false
+
+            buildConfigField("String", "BASE_URL", "\"https://ground-booking-live-scores.onrender.com/\"")
+
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"

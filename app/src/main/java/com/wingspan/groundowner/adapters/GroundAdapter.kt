@@ -70,6 +70,10 @@ class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, 
                 navController.navigate(R.id.action_groundfragment_to_displayFragment,bundle)
 
             }
+            btnUpdate.setDebouncedClickListener {
+
+            }
+
 
         }
     }
@@ -92,7 +96,7 @@ class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, 
     private fun deleteDialog(id: Int) {
 
         val builder= AlertDialog.Builder(context)
-        builder.setTitle("Logout")
+        builder.setTitle("Delete")
         builder.setMessage("Are you sure want to Delete?")
         builder.setPositiveButton("OK"){dialog,which->
             viewModel.deleteGround(id)

@@ -1,11 +1,13 @@
 package com.wingspan.groundowner.adapters
 
-import BookingModel
+import Booking
+import android.util.Log
+
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wingspan.groundowner.fragments.BookingStatusFragment
 
-class BookingPagerAdapter(fragment: Fragment,val  bookingList: ArrayList<BookingModel>) : FragmentStateAdapter(fragment) {
+class BookingPagerAdapter(fragment: Fragment,val  bookingList: ArrayList<Booking>) : FragmentStateAdapter(fragment) {
 
     override fun getItemCount(): Int = 3
 
@@ -17,6 +19,7 @@ class BookingPagerAdapter(fragment: Fragment,val  bookingList: ArrayList<Booking
         }
 
         val filteredList = bookingList.filter { it.status.equals(status, ignoreCase = true) }
+        Log.d("size book adapter","-->${filteredList.size}...${status}")
         return BookingStatusFragment.newInstance(ArrayList(filteredList))
 
     }

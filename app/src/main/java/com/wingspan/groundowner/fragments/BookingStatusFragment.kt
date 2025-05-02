@@ -1,6 +1,7 @@
 package com.wingspan.groundowner.fragments
 
-import BookingModel
+import Booking
+
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -17,7 +18,7 @@ class BookingStatusFragment : Fragment() {
     private var _binding: FragmentBookingStatusBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var bookingList: ArrayList<BookingModel>
+    private lateinit var bookingList: ArrayList<Booking>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,8 +34,18 @@ class BookingStatusFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = BookingAdapter(bookingList)
+        binding.recyclerView.adapter = BookingAdapter(requireContext(),bookingList)
+
+        if(bookingList.isEmpty()){
+            binding.noRecordsLayout.visibility = View.VISIBLE
+            binding.recyclerView.visibility=View.GONE
+        }else{
+            binding.noRecordsLayout.visibility = View.GONE
+            binding.recyclerView.visibility=View.VISIBLE
+        }
     }
 
     override fun onDestroyView() {
@@ -43,7 +54,7 @@ class BookingStatusFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(bookings: ArrayList<BookingModel>) = BookingStatusFragment().apply {
+        fun newInstance(bookings: ArrayList<Booking>) = BookingStatusFragment().apply {
             arguments = Bundle().apply {
                 putParcelableArrayList("bookings", bookings)
             }
