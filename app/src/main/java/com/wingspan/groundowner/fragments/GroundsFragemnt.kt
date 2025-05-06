@@ -703,9 +703,7 @@
                             selectedTimeSlots.add(timeSlots[index]) // Store as object
                         }
                     }
-                    val gson = Gson()
 
-                    val jsonFormat = gson.toJson(selectedTimeSlots)
 
 
                     Log.d("time slots", "time slot --> ${addImagesList.size}")

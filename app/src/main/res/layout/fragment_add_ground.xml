@@ -127,7 +127,7 @@
                 android:layout_marginTop="6dp"
                 android:background="@drawable/rounded_edittext"
                 android:drawableTint="@color/grey_home"
-                android:hint="Sports Type"
+                android:hint="eg.,Cricket,Football"
                 android:padding="12dp"
                 android:textColorHint="@color/grey"
                 tools:ignore="Autofill,LabelFor,RtlSymmetry" />
@@ -195,7 +195,7 @@
                     android:layout_weight="1"
                     android:background="@null"
                     android:drawableTint="@color/grey_home"
-                    android:hint="Google Map link"
+                    android:hint="Latitude,Longitude"
                     android:textColorHint="@color/grey"
                     android:padding="6dp"
                     android:singleLine="true"
@@ -217,7 +217,13 @@
                     android:visibility="gone"
                 android:layout_marginStart="8dp"/>
             </LinearLayout>
-
+            <TextView style="@style/SmallTextStyle_black"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:text="Not a current location add latitude and longitude of destination address"
+                android:layout_marginTop="4dp"
+                android:visibility="visible" />
 
             <TextView
                 android:id="@+id/maplinkErrorTV"

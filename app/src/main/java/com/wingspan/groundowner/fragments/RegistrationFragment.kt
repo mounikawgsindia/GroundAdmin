@@ -124,7 +124,7 @@ class RegistrationFragment : Fragment() {
 
         }
         binding.signInTV.setDebouncedClickListener {
-            findNavController().navigate(R.id.loginFragment)
+            findNavController().navigateUp()
         }
 
     }

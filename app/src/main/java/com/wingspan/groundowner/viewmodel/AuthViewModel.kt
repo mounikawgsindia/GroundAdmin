@@ -130,6 +130,7 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
     private fun isValidEmail(email: String): Boolean {
         return android.util.Patterns.EMAIL_ADDRESS.matcher(email).matches()
     }
+
 }
 
 

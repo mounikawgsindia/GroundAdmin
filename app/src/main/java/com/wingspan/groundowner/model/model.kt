@@ -3,7 +3,7 @@ import java.io.Serializable
 
 import kotlinx.parcelize.Parcelize
 data class LoginRequest(
-    val phoneNumber: String
+    val phoneNumber: String?
 )
 data class LoginResponse(
     val success: Boolean,

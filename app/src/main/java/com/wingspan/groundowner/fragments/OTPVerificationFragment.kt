@@ -13,6 +13,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.activities.DashBoardActivity
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.activities.MainActivity
@@ -30,17 +31,18 @@ class OTPVerificationFragment : Fragment() {
     private var _binding: FragmentOTPVerificationBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
+
     @Inject
     lateinit var sharedPreferences: UserPreferences
-    lateinit var  pin:String
+    lateinit var pin: String
     private var countDownTimer: CountDownTimer? = null
-    lateinit var mobileNumber:String
+    lateinit var mobileNumber: String
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        _binding= FragmentOTPVerificationBinding.inflate(inflater, container, false)
+        _binding = FragmentOTPVerificationBinding.inflate(inflater, container, false)
         return binding.root
     }
 
@@ -64,13 +66,14 @@ class OTPVerificationFragment : Fragment() {
                 is Resource.Success -> {
                     Toast.makeText(requireContext(), it.data?.message, Toast.LENGTH_SHORT).show()
                 }
+
                 is Resource.Error -> handleError(it.message ?: "An error occurred")
                 is Resource.Loading -> {}
             }
         }
         viewModel.isDataValid.observe(viewLifecycleOwner) { isValid ->
 
-            Log.d("is valid status","is valid -->$isValid")
+            Log.d("is valid status", "is valid -->$isValid")
             if (isValid) verifyOTP() else Singleton.showToast(requireContext(), "Invalid Pin")
         }
     }
@@ -79,8 +82,13 @@ class OTPVerificationFragment : Fragment() {
     private fun handleSuccess(data: LoginResponse) {
         Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
         Log.d("Resend", "--> Resend ${data}")
-        val groundData=data.ground
-        sharedPreferences.saveData(data.token,groundData.username,groundData.email,groundData.phoneNumber)
+        val groundData = data.ground
+        sharedPreferences.saveData(
+            data.token,
+            groundData.username,
+            groundData.email,
+            groundData.phoneNumber
+        )
         Log.d("Resend", "--> Resend ${sharedPreferences.getMobileNumber()}")
         val intent = Intent(requireContext(), DashBoardActivity::class.java)
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
@@ -95,7 +103,7 @@ class OTPVerificationFragment : Fragment() {
 
     private fun verifyOTP() {
         if (Singleton.isNetworkAvailable(requireContext())) {
-            pin.let { viewModel.pinValidation(it,mobileNumber) }
+            pin.let { viewModel.pinValidation(it, mobileNumber) }
         } else {
             Singleton.showNetworkAlertDialog(requireContext())
         }
@@ -107,7 +115,7 @@ class OTPVerificationFragment : Fragment() {
         mobileNumber = arguments?.getString("mobilenumber").toString()
 
         with(binding) {
-            binding.displayText.text="Enter the 6 digits code sent to you at $mobileNumber"
+            binding.displayText.text = "Enter the 6 digits code sent to you at $mobileNumber"
             verify.setDebouncedClickListener {
                 Singleton.hideKeyboard(requireContext(), requireView())
                 pin = pinView.text.toString()
@@ -122,6 +130,7 @@ class OTPVerificationFragment : Fragment() {
 
             startOtpResendTimer()
         }
+
     }
 
     private fun startOtpResendTimer() {
