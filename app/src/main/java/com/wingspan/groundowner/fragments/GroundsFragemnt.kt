@@ -167,14 +167,14 @@
            viewModel.cityStatus.observe(viewLifecycleOwner){ resource ->
                when(resource){
                    is Resource.Success -> handleCitySuccess(resource.data)
-                   is Resource.Error -> handleLoginError(resource.message)
+                   is Resource.Error -> handleError(resource.message)
                    is Resource.Loading -> Log.d("Loading", "---> Verification in progress...")
                }
            }
             viewModel.deleteGroundStatus.observe(viewLifecycleOwner){ resource ->
                 when(resource){
                     is Resource.Success -> handleDeleteGroundSuccess(resource.data?.message!!)
-                    is Resource.Error -> handleLoginError(resource.message)
+                    is Resource.Error -> handleError(resource.message)
                     is Resource.Loading -> Log.d("Loading", "---> Verification in progress...")
                 }
             }
@@ -204,7 +204,7 @@
 
                         }
 
-                        handleLoginError(resource.message)}
+                        handleError(resource.message)}
                     is Resource.Loading -> {
                         Log.d("Loading", "---> Verification in progress...")
                        binding.apply {
@@ -219,15 +219,23 @@
             viewModel.areaStatus.observe(viewLifecycleOwner){ resource ->
                 when(resource){
                     is Resource.Success -> handleGetAreaSuccess(resource.data)
-                    is Resource.Error -> handleLoginError(resource.message)
+                    is Resource.Error -> handleError(resource.message)
                     is Resource.Loading -> Log.d("Loading", "---> Verification in progress...")
                 }
             }
             viewModel.postGroundStatus.observe(viewLifecycleOwner){ resource ->
                 when(resource){
-                    is Resource.Success -> handlePostgroundSuccess(resource.data)
-                    is Resource.Error -> handleLoginError(resource.message)
-                    is Resource.Loading -> Log.d("Loading", "---> Verification in progress...")
+                    is Resource.Success -> {
+                        alertBinding?.progressBar?.visibility=View.GONE
+                        handlePostgroundSuccess(resource.data)
+                    }
+                    is Resource.Error -> {
+                        alertBinding?.progressBar?.visibility=View.GONE
+                        handleError(resource.message)
+                    }
+                    is Resource.Loading -> {
+                        alertBinding?.progressBar?.visibility=View.VISIBLE
+                        Log.d("Loading", "---> Verification in progress...")}
                 }
             }
             viewModel.inputsError.observe(viewLifecycleOwner, Observer { errors ->
@@ -419,7 +427,7 @@
 
         }
 
-        private fun handleLoginError(message: String?) {
+        private fun handleError(message: String?) {
             Log.e(" failed", "---> $message")
             Singleton.showToast(requireContext(), message ?: "Error occurred")
         }

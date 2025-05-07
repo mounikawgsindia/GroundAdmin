@@ -70,6 +70,7 @@
             tools:ignore="MissingConstraints"
             tools:listitem="@layout/custom_ground_images" />
 
+
         <LinearLayout
             android:id="@+id/linearlayout"
             android:layout_width="match_parent"
@@ -172,7 +173,6 @@
                 android:visibility="gone" />
 
             <TextView
-
                 style="@style/NormalTextStyle_Green"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -1153,5 +1153,23 @@
                 android:text="Save Ground Details" />
 
         </LinearLayout>
+
+        <FrameLayout
+            android:id="@+id/progressOverlay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clickable="true"
+            android:focusable="true"
+            android:visibility="gone">
+
+            <ProgressBar
+                android:id="@+id/progressBar"
+                style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:indeterminate="true" />
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.core.widget.NestedScrollView>
