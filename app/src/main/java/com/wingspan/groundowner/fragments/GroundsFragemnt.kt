@@ -30,6 +30,7 @@
     import android.view.ViewGroup
     import android.widget.AdapterView
     import android.widget.ArrayAdapter
+    import android.widget.ScrollView
     import android.widget.Toast
     import androidx.annotation.RequiresApi
     import androidx.appcompat.app.AlertDialog
@@ -226,15 +227,15 @@
             viewModel.postGroundStatus.observe(viewLifecycleOwner){ resource ->
                 when(resource){
                     is Resource.Success -> {
-                        alertBinding?.progressBar?.visibility=View.GONE
+                        alertBinding?.progressbar?.visibility=View.GONE
                         handlePostgroundSuccess(resource.data)
                     }
                     is Resource.Error -> {
-                        alertBinding?.progressBar?.visibility=View.GONE
+                        alertBinding?.progressbar?.visibility=View.GONE
                         handleError(resource.message)
                     }
                     is Resource.Loading -> {
-                        alertBinding?.progressBar?.visibility=View.VISIBLE
+                        alertBinding?.progressbar?.visibility=View.VISIBLE
                         Log.d("Loading", "---> Verification in progress...")}
                 }
             }
@@ -312,7 +313,30 @@
                         priceperhourErrorTV.visible()  // Show if error exists
                         priceperhourErrorTV.text = errors["priceperhour"]
                     }
+
                 }
+                // Scroll to the first error field
+                val firstErrorKey = errors.entries.firstOrNull { !it.value.isNullOrEmpty() }?.key
+                firstErrorKey?.let { key ->
+                    val targetView = when (key) {
+                        "groundheadinget" -> alertBinding?.groundheadinget
+                        "sportstypeet" -> alertBinding?.sportstypeet
+                        "groundaddresset" -> alertBinding?.groundaddresset
+                        "maplinket" -> alertBinding?.maplinket
+                        "pincodeet" -> alertBinding?.pincodeet
+                        "facilitieset" -> alertBinding?.facilitieset
+                        "venueet" -> alertBinding?.venueet
+                        "venuerules" -> alertBinding?.venueruleset
+                        "priceperhour" -> alertBinding?.priceperhouret
+                        else -> null
+                    }
+                    targetView?.requestFocus()
+                    targetView?.let {
+                        // Optional: scroll if inside ScrollView or NestedScrollView
+                        (alertBinding?.root as? ScrollView)?.smoothScrollTo(0, it.top)
+                    }
+                }
+
                 // Check if all required fields are filled
                 val isFormValid = errors["groundheadinget"].isNullOrEmpty() &&
                         errors["sportstypeet"].isNullOrEmpty() &&
@@ -397,8 +421,11 @@
             dialog.dismiss()
             binding.groundcount.text= "("+gropundList.size.toString()+")"
             Log.d("get handleGetGroundSuccess","response--->${data?.ground?.areaName}")
-            groundAdapter.addItem(data?.ground!!)
 
+            data?.ground?.let {
+                groundAdapter.addItem(it)
+                binding.groundrv.scrollToPosition(gropundList.size-1)
+            }
 
         }
         private fun handleDeleteGroundSuccess(message: String) {

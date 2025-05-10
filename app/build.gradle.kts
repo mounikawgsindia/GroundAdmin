@@ -26,12 +26,12 @@ android {
     buildTypes {
         debug {
 
-            buildConfigField("String", "BASE_URL", "\"https://ground-booking-live-scores.onrender.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://pitchnground.com/\"")
         }
 
         release {
 
-            buildConfigField("String", "BASE_URL", "\"https://ground-booking-live-scores.onrender.com/\"")
+            buildConfigField("String", "BASE_URL", "\"https://pitchnground.com/")
 
             isMinifyEnabled = true
             proguardFiles(

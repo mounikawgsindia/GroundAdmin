@@ -34,7 +34,7 @@ object ApiClient {
 
     private val retrofitGroundOwner by lazy {
         Retrofit.Builder()
-            .baseUrl("https://ground-booking-live-scores-main12.onrender.com/")
+            .baseUrl(BuildConfig.BASE_URL)
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
