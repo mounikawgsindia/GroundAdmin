@@ -92,6 +92,6 @@ interface ApiService {
     ): Response<PostGroundsResponse>
 
 
-    @GET("api/payments/owner/bookings")
+    @GET("ground/booking-summary")
     suspend fun groundBooking(@Header("Authorization")token:String): Response<BookingResponse>
 }

@@ -1,21 +1,19 @@
-package com.wingspan.groundowner.adapters
-
+package com.wingspan.groundowner.fragments
 
 import Booking
+import CanceledBooking
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import com.wingspan.groundowner.adapters.BookingAdapter
 import com.wingspan.groundowner.databinding.ItemBookingBinding
 import com.wingspan.groundowner.databinding.OrderBottomSheetLayoutBinding
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
-import kotlin.toString
 
-class BookingAdapter(var context:Context,private val bookings: List<Booking>) :
-    RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {
+class CancelBookingAdapter(var context:Context,private val bookings: List<CanceledBooking>) :
+    RecyclerView.Adapter<CancelBookingAdapter.BookingViewHolder>() {
 
     inner class BookingViewHolder(val binding: ItemBookingBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -30,7 +28,7 @@ class BookingAdapter(var context:Context,private val bookings: List<Booking>) :
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val booking = bookings[position]
         holder.binding.apply {
-            username.text = booking.user.username.toString()
+           // username.text = booking.user.username.toString()
             price.text=booking.totalAmount.toString()
             sports.text=booking.sport
             slotList.text = booking.slots
@@ -41,7 +39,7 @@ class BookingAdapter(var context:Context,private val bookings: List<Booking>) :
             }
         }
     }
-    private fun bottomSheetDialog(bookings: Booking) {
+    private fun bottomSheetDialog(bookings: CanceledBooking) {
 
         val dialog = BottomSheetDialog(context)
         val binding = OrderBottomSheetLayoutBinding.inflate(LayoutInflater.from(context))
@@ -49,12 +47,12 @@ class BookingAdapter(var context:Context,private val bookings: List<Booking>) :
         dialog.setCancelable(true)
 
         binding.timetv.text=bookings.date
-       // binding.groundnametv.text=bookings.groundId.toString()
+        // binding.groundnametv.text=bookings.groundId.toString()
         binding.slotstv.text=bookings.slots.toString()
         binding.sportstypetv.text=bookings.sport
         binding.pricetv.text=bookings.totalAmount.toString()
-        binding.emailtv.text=bookings.user.email
-        binding.numbertv.text=bookings.user.phoneNumber
+//        binding.emailtv.text=bookings.user.email
+//        binding.numbertv.text=bookings.user.phoneNumber
         binding.statutv.text=bookings.status
         binding.apply {
 //            if(!bookings.payments.isEmpty())

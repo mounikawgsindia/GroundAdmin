@@ -116,30 +116,58 @@ data class ImageUrl(
 
 data class BookingResponse(
     val success: Boolean,
-    val bookings: List<Booking>
+    val message: String,
+    val data: BookingData
 )
+
+data class BookingData(
+    val activeBookings: List<Booking>,
+    val canceledBookings: List<CanceledBooking>,
+    val totalActive: Int,
+    val totalCanceled: Int
+)
+
+
+
+@Parcelize
+data class Ground1(
+    val id: Int,
+    val groundHeading: String,
+    val groundAddress: String
+) : Parcelable
+
+
+@Parcelize
+data class CanceledBooking(
+    val id: Int,
+    val slots: String,
+    val totalAmount: Int,
+    val refundAmount: Int,
+    val sport: String,
+    val date: String,
+    val cancellationDate: String,
+    val status: String
+) : Parcelable
+
 @Parcelize
 data class Booking(
     val id: Int,
-    val userId: Int,
-    val groundId: Int,
-    val ownerId: Int,
-    val PhoneNumber: String,
-    val slots: String, // or List<String> if you parse it further
+    val user: User,
+    val ground: Ground1?,
+    val slots: String, // Can be parsed further to List<String> if needed
     val totalAmount: Int,
     val sport: String,
     val status: String,
     val date: String,
-    val createdAt: String,
-    val updatedAt: String,
-    val user: User
-): Parcelable
+    val createdAt: String
+) : Parcelable
+
 @Parcelize
-
-
 data class User(
     val id: Int,
     val username: String,
     val email: String,
     val phoneNumber: String
-): Parcelable
+) : Parcelable
+
+

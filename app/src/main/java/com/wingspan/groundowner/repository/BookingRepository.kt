@@ -13,7 +13,7 @@ import org.json.JSONObject
 import retrofit2.Response
 import javax.inject.Inject
 
-class BookingRepository@Inject constructor(var apiserver: OwnerApiService, private var sharedpreferences: UserPreferences) {
+class BookingRepository@Inject constructor(var apiserver: ApiService, private var sharedpreferences: UserPreferences) {
 
 
     val token = "Bearer ${sharedpreferences.getToken()}"
@@ -25,7 +25,7 @@ class BookingRepository@Inject constructor(var apiserver: OwnerApiService, priva
 
     suspend fun groundBooking() {
         Log.d("groundBooking ","--->${token}")
-        safeApiCall(_getbookings) { apiserver.groundBookingd(token) }
+        safeApiCall(_getbookings) { apiserver.groundBooking(token) }
     }
 
     suspend fun <T> safeApiCall(

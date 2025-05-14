@@ -1,6 +1,7 @@
 package com.wingspan.groundowner.fragments
 
 import Booking
+import CanceledBooking
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -18,11 +19,13 @@ class BookingStatusFragment : Fragment() {
     private var _binding: FragmentBookingStatusBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var bookingList: ArrayList<Booking>
+    private var bookingList: ArrayList<Booking>? = null
+    private var cancelList: ArrayList<CanceledBooking>? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        bookingList = arguments?.getParcelableArrayList("bookings") ?: arrayListOf()
+        bookingList = arguments?.getParcelableArrayList("bookingList")
+        cancelList = arguments?.getParcelableArrayList("cancelList")
     }
 
     override fun onCreateView(
@@ -34,17 +37,30 @@ class BookingStatusFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-
-
         binding.recyclerView.layoutManager = LinearLayoutManager(requireContext())
-        binding.recyclerView.adapter = BookingAdapter(requireContext(),bookingList)
 
-        if(bookingList.isEmpty()){
+        when {
+            bookingList != null -> {
+                binding.recyclerView.adapter = BookingAdapter(requireContext(), bookingList!!)
+                toggleView(bookingList!!.isEmpty())
+            }
+            cancelList != null -> {
+                binding.recyclerView.adapter = CancelBookingAdapter(requireContext(), cancelList!!)
+                toggleView(cancelList!!.isEmpty())
+            }
+            else -> {
+                toggleView(true)
+            }
+        }
+    }
+
+    private fun toggleView(isEmpty: Boolean) {
+        if (isEmpty) {
             binding.noRecordsLayout.visibility = View.VISIBLE
-            binding.recyclerView.visibility=View.GONE
-        }else{
+            binding.recyclerView.visibility = View.GONE
+        } else {
             binding.noRecordsLayout.visibility = View.GONE
-            binding.recyclerView.visibility=View.VISIBLE
+            binding.recyclerView.visibility = View.VISIBLE
         }
     }
 
@@ -54,10 +70,21 @@ class BookingStatusFragment : Fragment() {
     }
 
     companion object {
-        fun newInstance(bookings: ArrayList<Booking>) = BookingStatusFragment().apply {
-            arguments = Bundle().apply {
-                putParcelableArrayList("bookings", bookings)
-            }
+        fun newInstance(bookings: ArrayList<Booking>): BookingStatusFragment {
+            val fragment = BookingStatusFragment()
+            val args = Bundle()
+            args.putParcelableArrayList("bookingList", bookings)
+            fragment.arguments = args
+            return fragment
+        }
+
+        fun newCancelledInstance(cancelled: ArrayList<CanceledBooking>): BookingStatusFragment {
+            val fragment = BookingStatusFragment()
+            val args = Bundle()
+            args.putParcelableArrayList("cancelList", cancelled)
+            fragment.arguments = args
+            return fragment
         }
     }
+
 }

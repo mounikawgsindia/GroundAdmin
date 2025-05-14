@@ -1,26 +1,46 @@
 package com.wingspan.groundowner.adapters
 
 import Booking
+import CanceledBooking
+import android.os.Bundle
 import android.util.Log
 
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.wingspan.groundowner.fragments.BookingStatusFragment
 
-class BookingPagerAdapter(fragment: Fragment,val  bookingList: ArrayList<Booking>) : FragmentStateAdapter(fragment) {
+class BookingPagerAdapter(
+    fragment: Fragment,
+    val bookingList: ArrayList<Booking>,val
+    bookingCancelList: ArrayList<CanceledBooking>
+) : FragmentStateAdapter(fragment) {
 
-    override fun getItemCount(): Int = 3
+    override fun getItemCount(): Int = 2
 
     override fun createFragment(position: Int): Fragment {
-        val status = when (position) {
-            0 -> "confirmed"
-            1 -> "pending"
-            else -> "cancelled"
+        return when (position) {
+            0 -> {
+                // Confirmed bookings
+
+                Log.d("Adapter", "Confirmed bookings: ${bookingList.size}")
+                BookingStatusFragment.newInstance(ArrayList(bookingList))
+            }
+
+            1 -> {
+                // Cancelled bookings
+                Log.d("Adapter", "Cancelled bookings: ${bookingCancelList.size}")
+                BookingStatusFragment.newCancelledInstance(ArrayList(bookingCancelList))
+            }
+
+            else -> {
+                // Pending bookings
+                val filteredList =
+                    bookingList.filter { it.status.equals("pending", ignoreCase = true) }
+                Log.d("Adapter", "Pending bookings: ${filteredList.size}")
+                BookingStatusFragment.newInstance(ArrayList(filteredList))
+            }
         }
 
-        val filteredList = bookingList.filter { it.status.equals(status, ignoreCase = true) }
-        Log.d("size book adapter","-->${filteredList.size}...${status}")
-        return BookingStatusFragment.newInstance(ArrayList(filteredList))
-
     }
+
 }

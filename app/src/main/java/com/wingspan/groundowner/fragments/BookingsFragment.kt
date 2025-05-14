@@ -1,6 +1,7 @@
 package com.wingspan.groundowner.fragments
 
 import Booking
+import CanceledBooking
 
 import android.os.Bundle
 import android.util.Log
@@ -34,6 +35,7 @@ class BookingsFragment : Fragment() {
     private val binding get() = _binding!!
     lateinit var alertDialog:AlertDialog
      var bookingList=ArrayList<Booking>()
+    var bookingCancelList=ArrayList<CanceledBooking>()
     val viewmodel: BookingViewModel by viewModels()
     lateinit var adapter: BookingPagerAdapter
     @Inject
@@ -53,15 +55,15 @@ class BookingsFragment : Fragment() {
         //display tabview
         viewPagerSetUp()
         makeApiCall()
-        setUI()
+        //setUI()
         setObservers()
     }
 
     private fun viewPagerSetUp() {
 
         Log.e("list count ","--->${bookingList.size}")
-        val titles= listOf("Confirm","Pending","Canceled")
-         adapter = BookingPagerAdapter(this,bookingList)
+        val titles= listOf("Confirm","Canceled")
+         adapter = BookingPagerAdapter(this,bookingList,bookingCancelList)
         binding.viewPager.adapter = adapter
         TabLayoutMediator(binding.tabLayout, binding.viewPager) { tab, position ->
             tab.text = titles[position]
@@ -88,12 +90,21 @@ class BookingsFragment : Fragment() {
                             is Resource.Success -> {
                                 shimmerStop()
                                 bookingList.clear()
-                              state.data?.bookings?.let{
-                                  bookingList.addAll(it)
-                                  viewPagerSetUp()
-                                  setUI()
-                                  updateUIVisibility()
-                              }
+                                val bookings = state.data?.data?.activeBookings
+                                val cancelBookings = state.data?.data?.canceledBookings
+                                binding.apply {
+                                    tvActiveCount.text= state.data?.data?.totalActive.toString()
+                                    tvCancelledCount.text=state.data?.data?.totalCanceled.toString()
+                                }
+                                if (!bookings.isNullOrEmpty()) {
+                                    bookingList.addAll(bookings)
+                                    cancelBookings?.let {
+                                        bookingCancelList.addAll(it)
+                                    }
+                                    viewPagerSetUp()
+                                 //   setUI()
+                                    updateUIVisibility()
+                                }
                             }
                             is Resource.Error -> {
                                 shimmerStop()
@@ -119,12 +130,7 @@ class BookingsFragment : Fragment() {
         binding.viewPager.visibility = View.GONE
     }
 
-    private fun setUI() {
-        binding.apply {
-            tvActiveCount.text= bookingList.count { it.status.equals("confirmed", ignoreCase = true) } .toString()
-            tvCancelledCount.text=bookingList.count { it.status.equals("pending", ignoreCase = true) }.toString()
-        }
-    }
+
     private fun updateUIVisibility() {
         if (bookingList.isEmpty()) {
             binding.viewPager.visibility = View.GONE
