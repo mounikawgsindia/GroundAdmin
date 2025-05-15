@@ -1,7 +1,7 @@
 package com.wingspan.groundowner.viewmodel
 
-import LoginResponse
-import ResponseData
+import com.wingspan.groundowner.model.LoginResponse
+import com.wingspan.groundowner.model.ResponseData
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel

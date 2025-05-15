@@ -1,10 +1,8 @@
 package com.wingspan.groundowner.adapters
 
-import GetGround
-import ImageUrl
+import com.wingspan.groundowner.model.GetGround
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,11 +11,8 @@ import androidx.navigation.NavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.wingspan.groundowner.R
-import com.wingspan.groundowner.activities.MainActivity
 import com.wingspan.groundowner.databinding.CustomAddGroundBinding
-import com.wingspan.groundowner.fragments.GroundsFragemntDirections
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
-import com.wingspan.groundowner.utils.UserPreferences
 import com.wingspan.groundowner.viewmodel.GroundsViewModel
 
 class GroundAdapter(val context: Context, var groundsList:ArrayList<GetGround>, private val viewModel: GroundsViewModel,private val navController: NavController):

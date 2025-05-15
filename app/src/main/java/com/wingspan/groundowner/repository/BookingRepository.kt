@@ -1,9 +1,8 @@
 package com.wingspan.groundowner.repository
 
-import BookingResponse
+import com.wingspan.groundowner.model.BookingResponse
 import android.util.Log
 import com.wingspan.groundowner.network.ApiService
-import com.wingspan.groundowner.network.OwnerApiService
 import com.wingspan.groundowner.utils.Resource
 import com.wingspan.groundowner.utils.UserPreferences
 import kotlinx.coroutines.flow.MutableStateFlow

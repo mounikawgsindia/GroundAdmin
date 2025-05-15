@@ -1,25 +1,19 @@
 package com.wingspan.groundowner.repository
 
-import LoginRequest
-import LoginResponse
-import RegisterRequest
-import RegisterResponse
-import ResponseData
-import VerifyRequest
+import com.wingspan.groundowner.model.LoginRequest
+import com.wingspan.groundowner.model.LoginResponse
+import com.wingspan.groundowner.model.RegisterRequest
+import com.wingspan.groundowner.model.ResponseData
+import com.wingspan.groundowner.model.VerifyRequest
 import android.util.Log
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.viewModelScope
 
 
 import com.wingspan.groundowner.network.ApiService
 
 import com.wingspan.groundowner.utils.Resource
-import kotlinx.coroutines.launch
 import org.json.JSONException
 import org.json.JSONObject
 import retrofit2.HttpException
-import retrofit2.Response
 import java.io.IOException
 import java.net.SocketTimeoutException
 import java.net.UnknownHostException

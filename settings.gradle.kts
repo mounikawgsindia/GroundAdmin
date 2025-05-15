@@ -13,6 +13,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "GroundOwner"
+rootProject.name = "PGOwner"
 include(":app")
  

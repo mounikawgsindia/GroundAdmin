@@ -1,14 +1,13 @@
     package com.wingspan.groundowner.fragments
 
-    import Area
-    import AreaResponse
-    import Cities
-    import CityResponse
-    import GetGround
+    import com.wingspan.groundowner.model.Area
+    import com.wingspan.groundowner.model.AreaResponse
+    import com.wingspan.groundowner.model.Cities
+    import com.wingspan.groundowner.model.CityResponse
+    import com.wingspan.groundowner.model.GetGround
 
-    import GetGroundsResponse
-    import PostGroundsResponse
-    import Slot
+    import com.wingspan.groundowner.model.GetGroundsResponse
+    import com.wingspan.groundowner.model.PostGroundsResponse
     import android.Manifest
     import android.R
     import android.annotation.SuppressLint
@@ -32,6 +31,8 @@
     import android.widget.ArrayAdapter
     import android.widget.ScrollView
     import android.widget.Toast
+    import androidx.activity.result.ActivityResultLauncher
+    import androidx.activity.result.contract.ActivityResultContracts
     import androidx.annotation.RequiresApi
     import androidx.appcompat.app.AlertDialog
     import androidx.core.app.ActivityCompat
@@ -45,12 +46,12 @@
     import com.google.android.gms.common.ConnectionResult
     import com.google.android.gms.common.GoogleApiAvailability
     import com.google.android.gms.location.LocationServices
-    import com.google.gson.Gson
     import com.wingspan.groundowner.activities.MainActivity
     import com.wingspan.groundowner.adapters.GroundAdapter
     import com.wingspan.groundowner.adapters.ImagesAdapterUpdate
     import com.wingspan.groundowner.databinding.FragmentAddGroundBinding
     import com.wingspan.groundowner.databinding.FragmentGroundsFragemntBinding
+    import com.wingspan.groundowner.utils.AppLogger
     import com.wingspan.groundowner.utils.Resource
     import com.wingspan.groundowner.utils.Singleton
     import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
@@ -63,7 +64,7 @@
 
     @AndroidEntryPoint
     class GroundsFragemnt : Fragment() {
-
+        private lateinit var permissionLauncher: ActivityResultLauncher<String>
         companion object{
             private val LOCATION_REQUEST_CODE = 100
             val REQUEST_PERMISSION_CODE = 1001
@@ -103,6 +104,24 @@
         @RequiresApi(Build.VERSION_CODES.Q)
         override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
             super.onViewCreated(view, savedInstanceState)
+            //permission result
+            permissionLauncher = registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+                if (isGranted) {
+
+                } else {
+                    // Permission denied
+                    if (shouldShowRequestPermissionRationale(getRequiredPermission())) {
+                        Toast.makeText(context, "Permission is required to access gallery images", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(context, "Permission denied. Please enable it in the app settings.", Toast.LENGTH_LONG).show()
+                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                        val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
+                        intent.data = uri
+                        startActivity(intent)
+                    }
+                }
+            }
+
             checkAndRequestPermissions()
             checkLocationPermissionsForLocation()
             navController = findNavController()
@@ -124,35 +143,12 @@
 
             }
         }
-
         private fun checkAndRequestPermissions() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.READ_MEDIA_IMAGES
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // Permission not granted, request permission
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.READ_MEDIA_IMAGES),
-                        REQUEST_PERMISSION_CODE
-                    )
-                }
+            val permission = getRequiredPermission()
+            if (ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED) {
+
             } else {
-                // For Android versions below 13, use READ_EXTERNAL_STORAGE
-                if (ContextCompat.checkSelfPermission(
-                        requireContext(),
-                        Manifest.permission.READ_EXTERNAL_STORAGE
-                    ) != PackageManager.PERMISSION_GRANTED
-                ) {
-                    // Permission not granted, request permission
-                    ActivityCompat.requestPermissions(
-                        requireActivity(),
-                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE),
-                        REQUEST_PERMISSION_CODE
-                    )
-                }
+                permissionLauncher.launch(permission)
             }
         }
 
@@ -495,29 +491,7 @@
             grantResults: IntArray
         ) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            if (requestCode == REQUEST_PERMISSION_CODE) {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-
-                } else {
-                    // Permission denied, show a message to the user
-                    if (ActivityCompat.shouldShowRequestPermissionRationale(requireActivity(), permissions[0])) {
-                        // The user has denied the permission but has not checked "Don't ask again"
-                        Toast.makeText(context, "Permission is required to access gallery images", Toast.LENGTH_SHORT).show()
-                    } else {
-                        // The user has permanently denied the permission (checked "Don't ask again")
-                        // You can provide an option to open the settings page
-                        Toast.makeText(context, "Permission denied. Please enable it in the app settings.", Toast.LENGTH_LONG).show()
-
-                        // Optionally, you could guide them to the app settings screen
-                        // Open app settings (e.g., to let the user enable permissions)
-                        val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
-                        val uri: Uri = Uri.fromParts("package", requireActivity().packageName, null)
-                        intent.data = uri
-                        startActivity(intent)
-                    }
-                }
-            }
-            else if(requestCode == LOCATION_REQUEST_CODE){
+            if(requestCode == LOCATION_REQUEST_CODE){
                 if (grantResults.isNotEmpty() && grantResults.all { it == PackageManager.PERMISSION_GRANTED }) {
                     Log.d("Permissions", "Location permission granted")
                   //  getCurrentLocation()
@@ -542,53 +516,74 @@
             startActivity(intent)
         }
         private fun openGalleryForImages() {
-            Log.d("TAG", "---> openGalleryForImages")
-            //currentImageCount=0
+            AppLogger.d("TAG", "---> openGalleryForImages")
             val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
                 type = "image/*"
                 putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true)
             }
-            startActivityForResult(
-                Intent.createChooser(intent, "Select Pictures"), PICK_IMAGES_REQUEST
-            )
+            pickImagesLauncher.launch(Intent.createChooser(intent, "Select Pictures"))
         }
 
-        @SuppressLint("NotifyDataSetChanged")
-        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-            super.onActivityResult(requestCode, resultCode, data)
-
-            if (resultCode == Activity.RESULT_OK) {
-                if (requestCode == PICK_IMAGES_REQUEST) {
-                    // Check if the data contains multiple images
-                    data?.let {
-                        if (it.clipData != null) {
-                            // Multiple images selected
-                            val count = it.clipData!!.itemCount
-                            for (i in 0 until count) {
-                                val imageUri = it.clipData!!.getItemAt(i).uri
-                                addImagesList.add(imageUri)
-                                val imageName = getFileName(imageUri, requireContext().contentResolver)
-                                imageNamesList.add(imageName)
-                                // Handle the selected image URI (e.g., display, upload, etc.)
-                                Log.d("TAG", "Selected Image URI: $imageUri")
-                                // You can add the URIs to a list or perform any other actions here
-                            }
-                        } else {
-                            // Single image selected
-                            val imageUri = it.data
-                            imageUri?.let {
-                                addImagesList.add(it)
-                                imageNamesList.add(getFileName(it, requireContext().contentResolver))
-                            }
-
-                            Log.d("TAG", "Selected Image URI: $imageUri")
+        private val pickImagesLauncher = registerForActivityResult(
+            ActivityResultContracts.StartActivityForResult()
+        ) { result ->
+            if (result.resultCode == Activity.RESULT_OK) {
+                val data: Intent? = result.data
+                // Handle single or multiple images
+                data?.let {
+                    if (it.clipData != null) {
+                        val count = it.clipData!!.itemCount
+                        for (i in 0 until count) {
+                            val imageUri = it.clipData!!.getItemAt(i).uri
+                            addImagesList.add(imageUri)
+                            val imageName = getFileName(imageUri, requireContext().contentResolver)
+                            imageNamesList.add(imageName)
                             // Handle the selected image URI (e.g., display, upload, etc.)
+                            AppLogger.d("TAG", "Selected Image URI: $imageUri")
                         }
-                        addImagesAdapter.notifyDataSetChanged()
+                    } else if (it.data != null) {
+                        val imageUri = it.data!!
+                        addImagesList.add(imageUri)
+                        imageNamesList.add(getFileName(imageUri, requireContext().contentResolver))
                     }
+                    addImagesAdapter.notifyDataSetChanged()
                 }
             }
         }
+//
+//        @SuppressLint("NotifyDataSetChanged")
+//        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//            super.onActivityResult(requestCode, resultCode, data)
+//
+//            if (resultCode == Activity.RESULT_OK) {
+//                if (requestCode == PICK_IMAGES_REQUEST) {
+//                    // Check if the data contains multiple images
+//                    data?.let {
+//                        if (it.clipData != null) {
+//                            // Multiple images selected
+//                            val count = it.clipData!!.itemCount
+//                            for (i in 0 until count) {
+//                                val imageUri = it.clipData!!.getItemAt(i).uri
+//                                addImagesList.add(imageUri)
+//
+//
+//                            }
+//                        } else {
+//                            // Single image selected
+//                            val imageUri = it.data
+//                            imageUri?.let {
+//                                addImagesList.add(it)
+//                                imageNamesList.add(getFileName(it, requireContext().contentResolver))
+//                            }
+//
+//                            Log.d("TAG", "Selected Image URI: $imageUri")
+//                            // Handle the selected image URI (e.g., display, upload, etc.)
+//                        }
+//                        addImagesAdapter.notifyDataSetChanged()
+//                    }
+//                }
+//            }
+//        }
 
         @RequiresApi(Build.VERSION_CODES.Q)
         private fun checkLocationPermissionsForLocation() {
@@ -828,6 +823,16 @@
 //            // Hide BottomNavigationView when navigating away
 //            requireActivity().findViewById<BottomNavigationView>(com.wingspan.groundowner.R.id.bottomNavigationView).visibility = View.VISIBLE
 //        }
+
+
+        private fun getRequiredPermission(): String {
+            return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                Manifest.permission.READ_MEDIA_IMAGES
+            } else {
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            }
+        }
+
         override fun onDestroyView() {
             super.onDestroyView()
             _binding = null

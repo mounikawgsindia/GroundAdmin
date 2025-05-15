@@ -111,6 +111,30 @@
                     android:textColor="#666"/>
             </LinearLayout>
             <LinearLayout
+                android:id="@+id/canceldatell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Canceled Date: "
+                    style="@style/SmallTextStyle_black"/>
+                <TextView
+                    android:id="@+id/canceldatelltv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="334"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    style="@style/SmallTextStyle_black"
+                    android:textStyle="bold"
+                    android:textColor="#666"/>
+            </LinearLayout>
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="2dp"
@@ -130,6 +154,30 @@
                     android:textStyle="bold"
                     android:textColor="#666"/>
             </LinearLayout>
+            <LinearLayout
+                android:id="@+id/refundAmountll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:visibility="gone"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Refund Price: "
+                    style="@style/SmallTextStyle_black"/>
+                <TextView
+                    android:id="@+id/refundAmounttv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="334"
+                    style="@style/SmallTextStyle_black"
+                    android:textStyle="bold"
+                    android:textColor="#666"/>
+            </LinearLayout>
+
+
         </LinearLayout>
 
         <!-- Right: Arrow Icon -->

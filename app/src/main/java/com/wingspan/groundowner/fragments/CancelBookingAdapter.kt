@@ -1,13 +1,11 @@
 package com.wingspan.groundowner.fragments
 
-import Booking
-import CanceledBooking
+import com.wingspan.groundowner.model.CanceledBooking
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import com.wingspan.groundowner.adapters.BookingAdapter
 import com.wingspan.groundowner.databinding.ItemBookingBinding
 import com.wingspan.groundowner.databinding.OrderBottomSheetLayoutBinding
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
@@ -28,12 +26,15 @@ class CancelBookingAdapter(var context:Context,private val bookings: List<Cancel
     override fun onBindViewHolder(holder: BookingViewHolder, position: Int) {
         val booking = bookings[position]
         holder.binding.apply {
-           // username.text = booking.user.username.toString()
+            username.text = booking.id.toString()
             price.text=booking.totalAmount.toString()
             sports.text=booking.sport
             slotList.text = booking.slots
             bookingDate.text = booking.date
-
+            refundAmountll.visibility = ViewGroup.VISIBLE
+            canceldatell.visibility = ViewGroup.VISIBLE
+            refundAmounttv.text=booking.refundAmount.toString()
+            canceldatelltv.text=booking.cancellationDate
             arrowIcon.setDebouncedClickListener {
                 bottomSheetDialog(booking)
             }

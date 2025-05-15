@@ -1,18 +1,15 @@
 package com.wingspan.groundowner.adapters
 
 
-import Booking
+import com.wingspan.groundowner.model.Booking
 import android.content.Context
-import android.util.Log
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.wingspan.groundowner.databinding.ItemBookingBinding
 import com.wingspan.groundowner.databinding.OrderBottomSheetLayoutBinding
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
-import kotlin.toString
 
 class BookingAdapter(var context:Context,private val bookings: List<Booking>) :
     RecyclerView.Adapter<BookingAdapter.BookingViewHolder>() {

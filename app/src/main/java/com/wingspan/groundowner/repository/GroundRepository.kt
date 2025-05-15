@@ -1,11 +1,10 @@
 package com.wingspan.groundowner.repository
 
-import AreaResponse
-import CityResponse
-import DeleteResponse
-import GetGroundsResponse
-import PostGroundsResponse
-import Slot
+import com.wingspan.groundowner.model.AreaResponse
+import com.wingspan.groundowner.model.CityResponse
+import com.wingspan.groundowner.model.DeleteResponse
+import com.wingspan.groundowner.model.GetGroundsResponse
+import com.wingspan.groundowner.model.PostGroundsResponse
 import android.content.ContentResolver
 import android.net.Uri
 import android.provider.MediaStore

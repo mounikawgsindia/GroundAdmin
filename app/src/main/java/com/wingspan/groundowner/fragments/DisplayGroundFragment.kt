@@ -1,6 +1,6 @@
 package com.wingspan.groundowner.fragments
 
-import GetGround
+import com.wingspan.groundowner.model.GetGround
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment

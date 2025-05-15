@@ -1,7 +1,10 @@
+package com.wingspan.groundowner.model
+
 import android.os.Parcelable
 import java.io.Serializable
 
 import kotlinx.parcelize.Parcelize
+
 data class LoginRequest(
     val phoneNumber: String?
 )

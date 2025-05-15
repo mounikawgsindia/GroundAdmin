@@ -19,3 +19,18 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+# Keep BouncyCastle classes
+-keep class org.bouncycastle.** { *; }
+
+# Keep Conscrypt classes
+-keep class org.conscrypt.** { *; }
+
+# Keep OpenJSSE classes
+-keep class org.openjsse.** { *; }
+# Keep only the default OkHttp platform
+-dontwarn org.conscrypt.**
+-dontwarn org.bouncycastle.**
+-dontwarn org.openjsse.**
+
+# Optional: if you want to suppress missing class errors
+-ignorewarnings

@@ -7,18 +7,16 @@ import android.net.Uri
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.CustomGroundImagesBinding
 
-
-class ImagesAdapterUpdate(
-    val context: Context,
-    var imagesList: ArrayList<Uri>,
-    var imageNamesList: ArrayList<String>
-) : RecyclerView.Adapter<ImagesAdapterUpdate.ImagesViewHolder>() {
+class TrainerImageAdapter ( val context: Context,
+var imagesList: ArrayList<Uri>
+) : RecyclerView.Adapter<TrainerImageAdapter.ImagesViewHolder>() {
 
     interface OnItemRemovedListener1 {
         fun onItemRemoved1(isEmpty: Boolean, imageType: String)
@@ -57,24 +55,16 @@ class ImagesAdapterUpdate(
                 .error(R.drawable.gallery1)
                 .into(imageIV)
 
-            imagenameet.setText(imageNamesList[position])
+            imagenameet.visibility = View.GONE
 
-            imagenameet.addTextChangedListener(object : TextWatcher {
-                override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
-                override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
-                override fun afterTextChanged(editable: Editable?) {
-                    if (holder.adapterPosition != RecyclerView.NO_POSITION) {
-                        imageNamesList[holder.adapterPosition] = editable.toString()
-                    }
-                }
-            })
+
 
         }
     }
 
     private fun removeItem(position: Int) {
         imagesList.removeAt(position)
-        imageNamesList.removeAt(position)
+
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, imagesList.size)
 

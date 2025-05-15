@@ -31,7 +31,8 @@ android {
 
         release {
 
-            buildConfigField("String", "BASE_URL", "\"https://pitchnground.com/")
+
+            buildConfigField("String", "BASE_URL","\"https://pitchnground.com/\"")
 
             isMinifyEnabled = true
             proguardFiles(
@@ -57,6 +58,10 @@ android {
 }
 
 dependencies {
+    implementation ("org.bouncycastle:bcprov-jdk15to18:1.78")
+    implementation ("org.conscrypt:conscrypt-android:2.5.2")
+    implementation ("org.openjsse:openjsse:1.1.12")
+
 
     implementation("com.facebook.shimmer:shimmer:0.5.0")
     //circular indicator

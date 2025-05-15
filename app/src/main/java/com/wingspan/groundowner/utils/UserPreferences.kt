@@ -15,6 +15,13 @@ class UserPreferences @Inject constructor (@ApplicationContext private val  cont
         const val KEY_NUMBER = "number"
         const val KEY_TOKEN = "token"
         const val IS_LOGGED_IN="isLoggedIn"
+        const val USER_TYPE="usertype"
+    }
+    fun saveUser(userType:String?){
+        sharedPreferences.edit().apply(){
+            putString(USER_TYPE,userType)
+            apply()
+        }
     }
 
     fun saveData(token:String?,username:String?,email:String?,mobilenumber:String?){
@@ -35,7 +42,9 @@ class UserPreferences @Inject constructor (@ApplicationContext private val  cont
         }
 
     }
-
+    fun getUserType():String?{
+        return sharedPreferences.getString(USER_TYPE, null)
+    }
     fun getToken(): String? {
         return sharedPreferences.getString(KEY_TOKEN, null)
     }

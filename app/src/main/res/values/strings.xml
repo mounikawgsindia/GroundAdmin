@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">GroundOwner</string>
+    <string name="app_name">PGOwner</string>
     <!-- login page-->
     <string name="login">Login to your account</string>
     <string name="enter_name">Enter Name or Email</string>

@@ -1,7 +1,7 @@
 package com.wingspan.groundowner.fragments
 
-import Booking
-import CanceledBooking
+import com.wingspan.groundowner.model.Booking
+import com.wingspan.groundowner.model.CanceledBooking
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +9,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.wingspan.groundowner.R
 import com.wingspan.groundowner.adapters.BookingAdapter
 import com.wingspan.groundowner.databinding.FragmentBookingStatusBinding
 

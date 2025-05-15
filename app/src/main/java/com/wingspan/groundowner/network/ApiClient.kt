@@ -26,19 +26,13 @@ object ApiClient {
 
     private val retrofit: Retrofit by lazy {
         Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
+            .baseUrl("https://pitchnground.com/")
             .client(okHttpClient)// Ensure BASE_URL is defined in gradle.properties
             .addConverterFactory(GsonConverterFactory.create())
             .build()
     }
 
-    private val retrofitGroundOwner by lazy {
-        Retrofit.Builder()
-            .baseUrl(BuildConfig.BASE_URL)
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-    }
+
 
     @Provides
     @Singleton
@@ -48,7 +42,5 @@ object ApiClient {
     @Singleton
     fun provideApiService(): ApiService = retrofit.create(ApiService::class.java)
 
-    @Provides
-    @Singleton
-    fun provideGroundOwnerApi(): OwnerApiService  = retrofitGroundOwner.create(OwnerApiService ::class.java)
+
 }

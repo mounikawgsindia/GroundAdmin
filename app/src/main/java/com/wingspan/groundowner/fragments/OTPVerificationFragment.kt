@@ -1,6 +1,6 @@
 package com.wingspan.groundowner.fragments
 
-import LoginResponse
+import com.wingspan.groundowner.model.LoginResponse
 import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
@@ -13,10 +13,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
-import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.activities.DashBoardActivity
 import com.wingspan.groundowner.R
-import com.wingspan.groundowner.activities.MainActivity
 import com.wingspan.groundowner.databinding.FragmentOTPVerificationBinding
 import com.wingspan.groundowner.utils.Resource
 import com.wingspan.groundowner.utils.Singleton

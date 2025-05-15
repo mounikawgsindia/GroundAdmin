@@ -226,7 +226,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
-                android:text="Not a current location add latitude and longitude of destination address"
+                android:text="Not have a current location add latitude and longitude of destination address"
                 android:layout_marginTop="4dp"
                 android:visibility="visible" />
 

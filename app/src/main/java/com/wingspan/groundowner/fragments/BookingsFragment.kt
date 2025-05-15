@@ -1,7 +1,7 @@
 package com.wingspan.groundowner.fragments
 
-import Booking
-import CanceledBooking
+import com.wingspan.groundowner.model.Booking
+import com.wingspan.groundowner.model.CanceledBooking
 
 import android.os.Bundle
 import android.util.Log

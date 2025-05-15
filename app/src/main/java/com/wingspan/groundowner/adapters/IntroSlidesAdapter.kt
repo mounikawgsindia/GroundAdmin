@@ -1,20 +1,15 @@
 package com.wingspan.groundowner.adapters
 
-import GetGround
-import ImageUrl
+import com.wingspan.groundowner.model.GetGround
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
-import androidx.appcompat.view.menu.MenuView.ItemView
 import androidx.navigation.NavController
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.CustomIntroGroundBinding
-import com.wingspan.groundowner.databinding.ItemIntroSlideBinding
 
 
 class IntroSlidesAdapter(private val context: Context, private val imagesList: List<String>, private val navController: NavController, private val groundData: GetGround) :

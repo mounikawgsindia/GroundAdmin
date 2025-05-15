@@ -1,6 +1,7 @@
     package com.wingspan.groundowner.fragments
 
     import android.content.Context
+    import android.content.SharedPreferences
     import android.os.Bundle
     import android.util.Log
     import androidx.fragment.app.Fragment
@@ -18,9 +19,11 @@
     import com.wingspan.groundowner.databinding.FragmentLoginBinding
     import com.wingspan.groundowner.utils.Resource
     import com.wingspan.groundowner.utils.Singleton
+    import com.wingspan.groundowner.utils.UserPreferences
     import com.wingspan.groundowner.viewmodel.AuthViewModel
 
     import dagger.hilt.android.AndroidEntryPoint
+    import javax.inject.Inject
 
 
     @AndroidEntryPoint
@@ -32,6 +35,8 @@
         private lateinit var mobileNumber:String
         private val viewModel: AuthViewModel by viewModels()
 
+        @Inject
+        lateinit var sharedPreferences: UserPreferences
         override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
@@ -97,7 +102,12 @@
 
 
             binding.register.setOnClickListener {
-                findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+                if(sharedPreferences.getUserType().equals("trainer")){
+                    findNavController().navigate(R.id.action_loginFragment_to_trainerregistration)
+                }else{
+                    findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+                }
+
             }
             binding.btnSendOtp.setOnClickListener {
                 Singleton.hideKeyboard(requireContext(), requireView())

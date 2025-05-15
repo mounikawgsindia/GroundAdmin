@@ -42,6 +42,7 @@ class SplashScreenActivity : AppCompatActivity() {
                     flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 }
             } else {
+
                 Intent(this, MainActivity::class.java)
             }
             startActivity(intent)
