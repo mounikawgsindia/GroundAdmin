@@ -53,7 +53,7 @@
             android:drawableTint="@color/grey_home"
             android:hint="@string/enter_mobile_number"
             android:inputType="phone"
-            android:maxLength="10"
+            android:maxLength="13"
             android:paddingStart="16dp" />
 
         <!-- Send OTP Button -->

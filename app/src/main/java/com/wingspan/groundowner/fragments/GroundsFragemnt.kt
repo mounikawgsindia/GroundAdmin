@@ -49,6 +49,7 @@
     import com.wingspan.groundowner.activities.MainActivity
     import com.wingspan.groundowner.adapters.GroundAdapter
     import com.wingspan.groundowner.adapters.ImagesAdapterUpdate
+    import com.wingspan.groundowner.databinding.AlertFragmentNewGroundBinding
     import com.wingspan.groundowner.databinding.FragmentAddGroundBinding
     import com.wingspan.groundowner.databinding.FragmentGroundsFragemntBinding
     import com.wingspan.groundowner.utils.AppLogger
@@ -67,12 +68,11 @@
         private lateinit var permissionLauncher: ActivityResultLauncher<String>
         companion object{
             private val LOCATION_REQUEST_CODE = 100
-            val REQUEST_PERMISSION_CODE = 1001
-            private val PICK_IMAGES_REQUEST = 3
+
         }
         private var _binding: FragmentGroundsFragemntBinding? = null
         private val binding get() = _binding!!
-        var alertBinding: FragmentAddGroundBinding? = null
+        var alertBinding: AlertFragmentNewGroundBinding? = null
         var cityId:String=""
         var areaId:String=""
         var mapsLink:String=""
@@ -550,40 +550,7 @@
                 }
             }
         }
-//
-//        @SuppressLint("NotifyDataSetChanged")
-//        override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-//            super.onActivityResult(requestCode, resultCode, data)
-//
-//            if (resultCode == Activity.RESULT_OK) {
-//                if (requestCode == PICK_IMAGES_REQUEST) {
-//                    // Check if the data contains multiple images
-//                    data?.let {
-//                        if (it.clipData != null) {
-//                            // Multiple images selected
-//                            val count = it.clipData!!.itemCount
-//                            for (i in 0 until count) {
-//                                val imageUri = it.clipData!!.getItemAt(i).uri
-//                                addImagesList.add(imageUri)
-//
-//
-//                            }
-//                        } else {
-//                            // Single image selected
-//                            val imageUri = it.data
-//                            imageUri?.let {
-//                                addImagesList.add(it)
-//                                imageNamesList.add(getFileName(it, requireContext().contentResolver))
-//                            }
-//
-//                            Log.d("TAG", "Selected Image URI: $imageUri")
-//                            // Handle the selected image URI (e.g., display, upload, etc.)
-//                        }
-//                        addImagesAdapter.notifyDataSetChanged()
-//                    }
-//                }
-//            }
-//        }
+
 
         @RequiresApi(Build.VERSION_CODES.Q)
         private fun checkLocationPermissionsForLocation() {
@@ -596,17 +563,34 @@
             // Request permissions if not granted
             if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED ||
                 ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-
-                requestPermissions(
-                    arrayOf(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION),
-                    LOCATION_REQUEST_CODE
+                locationPermissionLauncher.launch(
+                    arrayOf(
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION
+                    )
                 )
             }
             else {
-
+                //getUserLocation()
             }
 
             }
+
+        val locationPermissionLauncher = registerForActivityResult(
+            ActivityResultContracts.RequestMultiplePermissions()
+        ) { permissions ->
+            val fineLocationGranted = permissions[Manifest.permission.ACCESS_FINE_LOCATION] ?: false
+            val coarseLocationGranted = permissions[Manifest.permission.ACCESS_COARSE_LOCATION] ?: false
+
+            if (fineLocationGranted || coarseLocationGranted) {
+                // Permissions granted, proceed with location
+               // getUserLocation()
+            } else {
+                // Show rationale or direct user to settings
+                Toast.makeText(requireContext(), "Location permission is required", Toast.LENGTH_SHORT).show()
+            }
+        }
+
         private fun isLocationEnabled(): Boolean {
             val locationManager = requireContext().getSystemService(LocationManager::class.java)
             return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
@@ -654,7 +638,7 @@
         private fun alertDialogAddGround() {
             imageNamesList.clear()
             addImagesList.clear()
-            alertBinding = FragmentAddGroundBinding.inflate(LayoutInflater.from(requireContext()))
+            alertBinding = AlertFragmentNewGroundBinding.inflate(LayoutInflater.from(requireContext()))
 
             val builder = AlertDialog.Builder(requireContext())
             builder.setView(alertBinding!!.root)

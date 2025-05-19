@@ -47,4 +47,5 @@
     <string name="ground_name">Ground Name :</string>
     <string name="address">Address</string>
     <string name="sample_ground_name">Sample Ground Name</string>
+    <string name="edit_ground_details">Edit Ground details</string>
 </resources>

@@ -27,7 +27,7 @@ import com.wingspan.groundowner.adapters.TrainerImageAdapter
 import com.wingspan.groundowner.databinding.FragmentMainChoiceBinding
 import com.wingspan.groundowner.databinding.FragmentTrainerRegistrationBinding
 
-import com.wingspan.groundowner.fragments.GroundsFragemnt.Companion.REQUEST_PERMISSION_CODE
+
 import com.wingspan.groundowner.utils.AppLogger
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
 import com.wingspan.groundowner.utils.UserPreferences

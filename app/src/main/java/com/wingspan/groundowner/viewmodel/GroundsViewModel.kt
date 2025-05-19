@@ -129,7 +129,33 @@ class GroundsViewModel @Inject constructor(private val repository: GroundReposit
         _isDataValid.value = errors.isEmpty()
     }
 
+    fun validInputs1(
+       pincodeet: String,
+        areaId: String, cityId: String,  groundaddresset: String, sportstypeet: String, groundheadinget: String
+    ) {
+        val errors = mutableMapOf<String, String>()
 
+
+        // Validate pincode
+        if (pincodeet.isEmpty()) errors["pincodeet"] = "Pincode is required"
+        else if (!isValidPincode(pincodeet)) errors["pincodeet"] = "Invalid pincode"
+
+
+        // Validate ground address
+        if (groundaddresset.isEmpty()) errors["groundaddresset"] = "Ground address is required"
+
+        // Validate sport type
+        if (sportstypeet.isEmpty()) errors["sportstypeet"] = "Sport type is required"
+
+        // Validate ground heading
+        if (groundheadinget.isEmpty()) errors["groundheadinget"] = "Ground heading is required"
+
+        // Update LiveData with errors
+        _inputsError.value = errors
+
+        // Validate overall input
+        _isDataValid.value = errors.isEmpty()
+    }
 
     // Example validation for pincode (you can customize it based on your requirement)
     private fun isValidPincode(pincode: String): Boolean {

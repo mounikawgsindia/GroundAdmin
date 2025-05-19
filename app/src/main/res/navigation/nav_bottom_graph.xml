@@ -9,7 +9,12 @@
         android:id="@+id/dashBoardFragment"
         android:name="com.wingspan.groundowner.fragments.DashBoardFragment"
         android:label="fragment_dash_board"
-        tools:layout="@layout/fragment_dash_board" />
+        tools:layout="@layout/fragment_dash_board" >
+
+        <action
+            android:id="@+id/action_dashBoardFragment_to_addgroundFragment"
+            app:destination="@id/addgroundFragment" />
+    </fragment>
     <fragment
         android:id="@+id/bookingFragment"
         android:name="com.wingspan.groundowner.fragments.BookingsFragment"
@@ -43,8 +48,16 @@
         android:id="@+id/addgroundFragment"
         android:name="com.wingspan.groundowner.fragments.AddGroundFragment"
         android:label="fragment_addfragment"
-        tools:layout="@layout/fragment_add_ground" />
-
+        tools:layout="@layout/fragment_add_ground" >
+        <action
+            android:id="@+id/action_addgroundFragment_to_addmorefragment"
+            app:destination="@id/addMoreFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addMoreFragment"
+        android:name="com.wingspan.groundowner.fragments.AddMoreGroundDetailsFragment"
+        android:label="add more Fragment"
+        tools:layout="@layout/fragment_add_more_ground_details" />
     <fragment
         android:id="@+id/displayFragment"
         android:name="com.wingspan.groundowner.fragments.DisplayGroundFragment"

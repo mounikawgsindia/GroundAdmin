@@ -11,8 +11,10 @@
     import android.view.Window
     import android.view.inputmethod.InputMethodManager
     import android.widget.Toast
+    import androidx.activity.OnBackPressedCallback
     import androidx.fragment.app.viewModels
     import androidx.lifecycle.ViewModelProvider
+    import androidx.navigation.NavOptions
     import androidx.navigation.fragment.findNavController
 
     import com.wingspan.groundowner.R
@@ -51,6 +53,14 @@
 
             setUI()
             setObservers()
+
+            requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner,object :
+                OnBackPressedCallback(true){
+                override fun handleOnBackPressed() {
+                    findNavController().popBackStack()
+                }
+
+            })
         }
 
 

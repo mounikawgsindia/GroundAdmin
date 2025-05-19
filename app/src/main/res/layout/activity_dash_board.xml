@@ -16,12 +16,7 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/bottomNavigationView" />
 
-<!--    <View-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="4dp"-->
-<!--        android:background="@drawable/shadow_background"-->
-<!--        tools:layout_editor_absoluteY="574dp"-->
-<!--        tools:ignore="MissingConstraints" />-->
+
 
     <!-- Bottom Navigation View -->
     <com.google.android.material.bottomnavigation.BottomNavigationView

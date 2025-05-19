@@ -11,8 +11,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.activities.DashBoardActivity
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.FragmentOTPVerificationBinding
@@ -48,6 +51,21 @@ class OTPVerificationFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         initUI()
         setObservers()
+        // Override system back press
+        requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner, object :
+            OnBackPressedCallback(true) {
+            override fun handleOnBackPressed() {
+                findNavController().navigate(
+                    R.id.loginFragment,
+                    null,
+                    NavOptions.Builder()
+                        .setPopUpTo(R.id.otp_verification_fragment, true) // Clear OTP from backstack
+                        .setLaunchSingleTop(true) // Prevent re-adding login if already on top
+                        .build()
+                )
+            }
+        })
+
 
     }
 

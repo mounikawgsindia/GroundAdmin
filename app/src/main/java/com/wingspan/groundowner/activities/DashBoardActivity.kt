@@ -15,46 +15,61 @@ import dagger.hilt.android.AndroidEntryPoint
 class DashBoardActivity : AppCompatActivity() {
     private var _binding: ActivityDashBoardBinding? = null
     private val binding get() = _binding!!
+
     private lateinit var navController: NavController
+    val bottomNav get() = binding.bottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         _binding = ActivityDashBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        //  Properly initialize NavController
-        val navHostFragment =  binding.fragmentContainerView.getFragment<NavHostFragment>()
+
+        // Initialize NavController from NavHostFragment inside the FragmentContainerView
+        val navHostFragment = binding.fragmentContainerView.getFragment<NavHostFragment>()
         navController = navHostFragment.navController
 
-        //  Setup BottomNavigationView with NavController
+        // Setup BottomNavigationView with NavController
         binding.bottomNavigationView.setupWithNavController(navController)
-        binding.bottomNavigationView.setOnItemSelectedListener (){menuItem->
-           // Avoids creating duplicate fragments.
+
+        // Override navigation to avoid multiple copies of the same fragment in the back stack
+        binding.bottomNavigationView.setOnItemSelectedListener { menuItem ->
             val options = NavOptions.Builder()
                 .setLaunchSingleTop(true)
-                .setPopUpTo(navController.graph.startDestinationId, false)//clear the back stack
+                .setPopUpTo(navController.graph.startDestinationId, false) // Keep start destination
                 .build()
-            when(menuItem.itemId){
-                R.id.nav_dashboard ->navController.navigate(R.id.dashBoardFragment,null,options)
-                R.id.nav_grounds -> navController.navigate(R.id.groundsFragemnt,null,options)
-                R.id.nav_payments -> navController.navigate(R.id.paymentsFragment,null,options)
-                R.id.nav_booking -> navController.navigate(R.id.bookingFragment,null,options)
 
+            when (menuItem.itemId) {
+                R.id.nav_dashboard -> {
+                    navController.navigate(R.id.dashBoardFragment, null, options)
+                    true
+                }
+                R.id.nav_grounds -> {
+                    navController.navigate(R.id.groundsFragemnt, null, options)
+                    true
+                }
+                R.id.nav_payments -> {
+                    navController.navigate(R.id.paymentsFragment, null, options)
+                    true
+                }
+                R.id.nav_booking -> {
+                    navController.navigate(R.id.bookingFragment, null, options)
+                    true
+                }
+                else -> false
             }
-            true
         }
     }
+
     override fun onBackPressed() {
         super.onBackPressed()
-
         if (navController.currentDestination?.id != navController.graph.startDestinationId) {
-            // If not on start destination, pop the current fragment
-            Log.d("if des","-->${navController.currentDestination?.id}....${navController.graph.startDestinationId}")
+            Log.d("DashBoardActivity", "Popping back stack")
             navController.popBackStack()
         } else {
-            // If on the start destination, exit the app
-            Log.d("if else des","-->")
+            Log.d("DashBoardActivity", "At start destination, finishing activity")
             finish()
         }
     }
+
     override fun onDestroy() {
         super.onDestroy()
         _binding = null

@@ -13,8 +13,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.R
+import com.wingspan.groundowner.activities.DashBoardActivity
 import com.wingspan.groundowner.activities.MainActivity
+import com.wingspan.groundowner.databinding.ActivityDashBoardBinding
 import com.wingspan.groundowner.databinding.AlertSettingDialogBinding
 import com.wingspan.groundowner.databinding.FragmentDashBoardBinding
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
@@ -110,11 +114,34 @@ class DashBoardFragment : Fragment() {
 
     private fun setUI() {
         binding.apply {
+            val navController = findNavController()
+            val backStackList = mutableListOf<String>()
+
+            navController.addOnDestinationChangedListener { _, destination, _ ->
+                backStackList.add(destination.label.toString())
+                Log.d("BackStack", "Current Stack: dash $backStackList")
+
+
+            }
             Log.d("sharedpre","-->Shared ${sharedPreferences.getUsername()}")
             tvName.text=sharedPreferences.getUsername()
             ivProfile.setDebouncedClickListener(){
                 rightDialog()
             }
+            addnewll.setDebouncedClickListener {
+                findNavController().navigate(R.id.action_dashBoardFragment_to_addgroundFragment)
+            }
+            bookings.setDebouncedClickListener {
+                val options = NavOptions.Builder()
+                    .setLaunchSingleTop(true)
+                    .setPopUpTo(navController.graph.startDestinationId, false) // Keep start destination
+                    .build()
+                navController.navigate(R.id.bookingFragment, null, options)
+
+                // Highlight the booking tab in bottom navigation
+                (activity as? DashBoardActivity)?.bottomNav?.selectedItemId = R.id.nav_booking
+            }
+
         }
     }
 
