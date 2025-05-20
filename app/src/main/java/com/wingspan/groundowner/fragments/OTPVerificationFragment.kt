@@ -106,10 +106,20 @@ class OTPVerificationFragment : Fragment() {
             groundData.phoneNumber
         )
         Log.d("Resend", "--> Resend ${sharedPreferences.getMobileNumber()}")
-        val intent = Intent(requireContext(), DashBoardActivity::class.java)
-        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-        startActivity(intent)
-        requireActivity().finish()
+
+        if(sharedPreferences.getUserType().toString()=="trainer"){
+            val navOptions = NavOptions.Builder()
+                .setPopUpTo(R.id.trainerFragment, true) // <-- This will remove AddGroundFragment
+                .build()
+
+            findNavController().navigate(R.id.action_otp_to_trainFragment,null,navOptions)
+        }else{
+            val intent = Intent(requireContext(), DashBoardActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+            requireActivity().finish()
+        }
+
     }
 
     private fun handleError(message: String) {

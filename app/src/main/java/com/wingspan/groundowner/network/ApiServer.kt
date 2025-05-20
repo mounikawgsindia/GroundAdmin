@@ -12,6 +12,7 @@ import com.wingspan.groundowner.model.LoginResponse
 import com.wingspan.groundowner.model.PostGroundsResponse
 import com.wingspan.groundowner.model.RegisterRequest
 import com.wingspan.groundowner.model.ResponseData
+import com.wingspan.groundowner.model.TrainerRegistrationResponse
 import com.wingspan.groundowner.model.VerifyRequest
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
@@ -90,4 +91,18 @@ interface ApiService {
 
     @GET("ground/booking-summary")
     suspend fun groundBooking(@Header("Authorization")token:String): Response<BookingResponse>
-}
+
+
+    //trainer apis
+    //post ground images
+    @Multipart
+    @POST("trainer/send-otp")
+    suspend fun RegistrationTrainer(
+        @Part("phoneNumber") phoneNumber: RequestBody,
+        @Part("fullName") fullName: RequestBody,
+        @Part("specialization") specialization: RequestBody,
+        @Part("email") email: RequestBody,
+        @Part imageFiles: List<MultipartBody.Part>,
+
+        ): Response<TrainerRegistrationResponse>
+    }

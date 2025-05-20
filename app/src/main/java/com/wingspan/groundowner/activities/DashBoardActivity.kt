@@ -9,13 +9,16 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.setupWithNavController
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.ActivityDashBoardBinding
+import com.wingspan.groundowner.utils.UserPreferences
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashBoardActivity : AppCompatActivity() {
     private var _binding: ActivityDashBoardBinding? = null
     private val binding get() = _binding!!
-
+    @Inject
+    lateinit var sharedPreferences:UserPreferences
     private lateinit var navController: NavController
     val bottomNav get() = binding.bottomNavigationView
     override fun onCreate(savedInstanceState: Bundle?) {

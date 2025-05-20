@@ -113,9 +113,17 @@
 
             binding.register.setOnClickListener {
                 if(sharedPreferences.getUserType().equals("trainer")){
-                    findNavController().navigate(R.id.action_loginFragment_to_trainerregistration)
+
+
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, true) // <-- This will remove AddGroundFragment
+                        .build()
+                    findNavController().navigate(R.id.action_loginFragment_to_trainerregistration,null,navOptions)
                 }else{
-                    findNavController().navigate(R.id.action_loginFragment_to_registrationFragment)
+                    val navOptions = NavOptions.Builder()
+                        .setPopUpTo(R.id.loginFragment, true) // <-- This will remove AddGroundFragment
+                        .build()
+                    findNavController().navigate(R.id.action_loginFragment_to_registrationFragment,null,navOptions)
                 }
 
             }

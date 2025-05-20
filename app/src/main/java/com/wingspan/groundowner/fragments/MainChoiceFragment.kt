@@ -21,6 +21,9 @@ class MainChoiceFragment : Fragment() {
 
     @Inject
     lateinit var sharedPreferences: UserPreferences
+
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?

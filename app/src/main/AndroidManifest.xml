@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools" >
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -9,6 +9,7 @@
     <uses-permission android:name="android.permission.FOREGROUND_SERVICE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
+
     <application
         android:name=".MyApp"
         android:allowBackup="true"
@@ -19,9 +20,16 @@
         android:roundIcon="@drawable/ball_logo"
         android:supportsRtl="true"
         android:theme="@style/Base.Theme.GroundOwner"
-        tools:targetApi="31" >
+        tools:targetApi="31">
+        <activity
+            android:name=".activities.TrainerActivity"
+            android:exported="false"
+            android:theme="@style/Base.Theme.GroundOwner"
+
+           />
         <activity
             android:name=".activities.MainActivity"
+            android:theme="@style/Base.Theme.GroundOwner"
             android:exported="false" />
         <activity
             android:name=".activities.DashBoardActivity"
@@ -29,7 +37,7 @@
         <activity
             android:name=".activities.SplashScreenActivity"
             android:exported="true"
-            android:theme="@style/Theme.GroundOwner.Splash" >
+            android:theme="@style/Theme.GroundOwner.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

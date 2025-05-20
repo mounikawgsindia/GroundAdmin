@@ -121,7 +121,6 @@ class DashBoardFragment : Fragment() {
                 backStackList.add(destination.label.toString())
                 Log.d("BackStack", "Current Stack: dash $backStackList")
 
-
             }
             Log.d("sharedpre","-->Shared ${sharedPreferences.getUsername()}")
             tvName.text=sharedPreferences.getUsername()

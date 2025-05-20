@@ -11,8 +11,8 @@
 
     <style name="Theme.GroundOwner.Splash" parent="Base.Theme.GroundOwner">
         <item name="android:windowBackground">@color/white</item>
-<!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo</item>-->
-<!--        <item name="postSplashScreenTheme">@style/Base.Theme.GroundOwner</item>-->
+        <!--        <item name="android:windowSplashScreenAnimatedIcon">@drawable/logo</item>-->
+        <!--        <item name="postSplashScreenTheme">@style/Base.Theme.GroundOwner</item>-->
 
     </style>
 
@@ -29,17 +29,20 @@
         <item name="android:textColor">@color/text_green</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
     <style name="HeadingTextStyle_black">
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/text_black</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
     <style name="MainHeadingTextStyle">
         <item name="android:textSize">@dimen/text_heading</item>
         <item name="android:textStyle">bold</item>
         <item name="android:fontFamily">sans-serif</item>
     </style>
+
     <style name="NormalTextStyle_Green">
         <item name="android:textSize">@dimen/text_normal</item>
         <item name="android:textColor">@color/green</item>
@@ -63,6 +66,7 @@
         <item name="android:textColor">@color/grey</item>
         <item name="android:fontFamily">ssans-serif-condensed-medium</item>
     </style>
+
     <style name="SmallTextStyle_green">
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/green</item>
@@ -79,6 +83,11 @@
         <item name="android:textSize">@dimen/text_small</item>
         <item name="android:textColor">@color/light_red</item>
         <item name="android:fontFamily">sans-serif</item>
+    </style>
+    <!-- Base application theme. -->
+    <style name="Base.Base.Theme.GroundOwner" parent="Theme.Material3.DayNight.NoActionBar">
+        <!-- Customize your dark theme here. -->
+        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
 
 

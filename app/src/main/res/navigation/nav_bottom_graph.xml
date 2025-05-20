@@ -63,4 +63,5 @@
         android:name="com.wingspan.groundowner.fragments.DisplayGroundFragment"
         android:label="Separate Fragment"
         tools:layout="@layout/fragment_display_ground" />
+
 </navigation>

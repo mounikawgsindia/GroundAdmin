@@ -7,6 +7,8 @@ import android.os.Handler
 import android.os.Looper
 import android.widget.ImageView
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.navigation.NavOptions
+import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.R
 import com.wingspan.groundowner.databinding.ActivityDashBoardBinding
 import com.wingspan.groundowner.databinding.ActivitySplashScreenBinding
@@ -38,9 +40,15 @@ class SplashScreenActivity : AppCompatActivity() {
 
         Handler(Looper.getMainLooper()).postDelayed({
             val intent = if (sharedPreferences.isLoggedIn()) {
-                Intent(this, DashBoardActivity::class.java).apply {
-                    flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+
+                if(sharedPreferences.getUserType().toString()=="trainer"){
+                    Intent(this, TrainerActivity::class.java)
+                }else{
+                    Intent(this, DashBoardActivity::class.java).apply {
+                        flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                    }
                 }
+
             } else {
 
                 Intent(this, MainActivity::class.java)

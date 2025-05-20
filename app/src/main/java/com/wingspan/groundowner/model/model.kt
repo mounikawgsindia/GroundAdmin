@@ -173,4 +173,8 @@ data class User(
     val phoneNumber: String
 ) : Parcelable
 
-
+data class TrainerRegistrationResponse(
+    val success: Boolean,
+    val message: String,
+    val gallery: List<String>
+)
