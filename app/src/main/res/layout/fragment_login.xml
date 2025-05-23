@@ -40,32 +40,62 @@
             android:textSize="24sp"
             android:textStyle="bold" />
 
-        <!-- Mobile Number Input -->
-        <EditText
-            android:id="@+id/etMobileNumber"
-            style="@style/NormalTextStyle_Green"
+        <LinearLayout
+            android:id="@+id/tvCountryCode"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:layout_marginTop="20dp"
+            android:orientation="horizontal"
+            android:layout_margin="30dp"
             android:background="@drawable/rounded_edittext"
-            android:drawableStart="@drawable/phone_icon"
-            android:drawablePadding="16dp"
-            android:drawableTint="@color/grey_home"
-            android:hint="@string/enter_mobile_number"
-            android:inputType="phone"
-            android:maxLength="13"
-            android:paddingStart="16dp" />
+            android:paddingStart="16dp"
+            android:gravity="center_vertical"
+            app:layout_constraintTop_toBottomOf="@id/tvTitle"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
 
+
+            <EditText
+                android:id="@+id/etMobileNumber"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:hint="Enter mobile number"
+                android:inputType="phone"
+                android:maxLength="13"
+                android:background="@android:color/transparent"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:fontFamily="sans-serif"
+                android:drawablePadding="12dp" />
+        </LinearLayout>
         <!-- Send OTP Button -->
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnSendOtp"
-            style="@style/NormalTextStyle_white"
+
+        <FrameLayout
+            android:id="@+id/register_button_container"
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:layout_marginTop="16dp"
+            android:layout_marginTop="6dp"
             android:background="@drawable/ripple_effect"
-            android:text="Send Otp" />
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/trainer_rv">
 
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnSendOtp"
+                style="@style/NormalTextStyle_white"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:background="@drawable/ripple_effect"
+                android:text="Send Otp" />
+
+            <ProgressBar
+                android:id="@+id/progress_bar"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_gravity="center|end"
+                android:layout_marginEnd="12dp"
+                android:visibility="gone"
+                android:indeterminateTint="@color/white" />
+        </FrameLayout>
         <!-- Register Section -->
         <LinearLayout
             android:layout_width="wrap_content"

@@ -24,6 +24,8 @@ import dagger.hilt.components.SingletonComponent
 
 
 object Singleton {
+    const val privacyPolicy="https://pitchnground.com/privacy"
+    const val termsAndConditions="https://pitchnground.com/terms"
 
     fun View.setDebouncedClickListener(debounceTimeMillis:Long=500, onClick:()->Unit){
         val handler= Handler(Looper.getMainLooper())

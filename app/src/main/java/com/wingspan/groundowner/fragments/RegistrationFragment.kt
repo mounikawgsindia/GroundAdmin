@@ -118,13 +118,31 @@ class RegistrationFragment : Fragment() {
                 mobileNumber = mobilenumberEt.text.toString()
                 email=emailEt.text.toString()
                 username=usernameEt.text.toString()
-                // Validate input before calling API
-                viewModel.validRegistration(email,mobileNumber,username)
+                if(agreeTermsCheckbox?.isChecked == true)
+                {
+                    // Validate input before calling API
+                    viewModel.validRegistration(email,mobileNumber,username)
+                }
+                else{
+                    Singleton.showToast(requireContext(),"Please agree term of services")
+                }
+
             }
 
         }
         binding.signInTV.setDebouncedClickListener {
             findNavController().navigateUp()
+        }
+        binding.termsLink?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("myKey", Singleton.termsAndConditions)
+            findNavController().navigate(R.id.action_register_to_privacypolicyfragment,bundle)
+
+        }
+        binding.privacyLink?.setOnClickListener {
+            val bundle = Bundle()
+            bundle.putString("myKey", Singleton.privacyPolicy)
+            findNavController().navigate(R.id.action_register_to_privacypolicyfragment,bundle)
         }
 
     }

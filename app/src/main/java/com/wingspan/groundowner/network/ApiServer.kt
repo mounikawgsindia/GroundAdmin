@@ -9,9 +9,12 @@ import com.wingspan.groundowner.model.DeleteResponse
 import com.wingspan.groundowner.model.GetGroundsResponse
 import com.wingspan.groundowner.model.LoginRequest
 import com.wingspan.groundowner.model.LoginResponse
+import com.wingspan.groundowner.model.LoginTrainerResponse
 import com.wingspan.groundowner.model.PostGroundsResponse
 import com.wingspan.groundowner.model.RegisterRequest
 import com.wingspan.groundowner.model.ResponseData
+import com.wingspan.groundowner.model.TrainerLoginResponse
+import com.wingspan.groundowner.model.TrainerProfileResponse
 import com.wingspan.groundowner.model.TrainerRegistrationResponse
 import com.wingspan.groundowner.model.VerifyRequest
 import okhttp3.MultipartBody
@@ -24,6 +27,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 import retrofit2.http.Multipart
 import retrofit2.http.POST
+import retrofit2.http.PUT
 import retrofit2.http.Part
 import retrofit2.http.Path
 
@@ -102,7 +106,47 @@ interface ApiService {
         @Part("fullName") fullName: RequestBody,
         @Part("specialization") specialization: RequestBody,
         @Part("email") email: RequestBody,
-        @Part imageFiles: List<MultipartBody.Part>,
+        @Part galleryImages: List<MultipartBody.Part>,
+        @Part profileImage: MultipartBody.Part?,
 
         ): Response<TrainerRegistrationResponse>
-    }
+
+
+
+    //login with phonenumber
+    @POST("trainer/login-otp")
+    suspend fun loginTrainer(@Body request:LoginRequest): Response<ResponseData>
+
+    //after login verify
+    @POST("trainer/verify-otp")
+    suspend fun verifyTrainerNumber(@Body request:VerifyRequest): Response<TrainerLoginResponse>
+
+
+    //registration
+    @POST("trainer/verify-register-otp")
+    suspend fun verifyTrainerRegisterNumber(@Body request:VerifyRequest): Response<LoginTrainerResponse>
+
+    //resend
+    @POST("trainer/resend-otp")
+    suspend fun resendTrainer(@Body request:LoginRequest): Response<ResponseData>
+
+    @Multipart
+    @PUT("trainer/update")
+    suspend fun UpdateTrainer(
+        @Header("Authorization")token:String,
+        @Part("address") address: RequestBody,
+        @Part("fullName") fullName: RequestBody,
+        @Part("specialization") specialization: RequestBody,
+        @Part("about ") about : RequestBody,
+        @Part("pricing ") pricing : RequestBody,
+        @Part("slots ") slots : RequestBody,
+
+        @Part galleryImages: List<MultipartBody.Part>,
+        @Part profileImage: MultipartBody.Part?,
+
+        ): Response<TrainerProfileResponse>
+
+
+    // @Part days: List<RequestBody>,
+}
+

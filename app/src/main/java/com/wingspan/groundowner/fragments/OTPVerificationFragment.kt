@@ -14,6 +14,9 @@ import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.repeatOnLifecycle
 import androidx.navigation.NavOptions
 import androidx.navigation.fragment.findNavController
 import com.wingspan.groundowner.activities.DashBoardActivity
@@ -24,7 +27,9 @@ import com.wingspan.groundowner.utils.Singleton
 import com.wingspan.groundowner.utils.Singleton.setDebouncedClickListener
 import com.wingspan.groundowner.utils.UserPreferences
 import com.wingspan.groundowner.viewmodel.AuthViewModel
+import com.wingspan.groundowner.viewmodel.TrainerViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -32,7 +37,7 @@ class OTPVerificationFragment : Fragment() {
     private var _binding: FragmentOTPVerificationBinding? = null
     private val binding get() = _binding!!
     private val viewModel: AuthViewModel by viewModels()
-
+    private val trainerViewModel: TrainerViewModel by viewModels()
     @Inject
     lateinit var sharedPreferences: UserPreferences
     lateinit var pin: String
@@ -92,12 +97,76 @@ class OTPVerificationFragment : Fragment() {
             Log.d("is valid status", "is valid -->$isValid")
             if (isValid) verifyOTP() else Singleton.showToast(requireContext(), "Invalid Pin")
         }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                trainerViewModel.verifyTrainer.collect { state ->
+                    when (state) {
+                        is Resource.Loading -> { binding.progressBar.visibility=View.VISIBLE
+                            binding.verify.isEnabled = false}
+                        is Resource.Success -> {
+                            binding.progressBar.visibility=View.GONE
+                            binding.verify.isEnabled = true
+                            Singleton.showToast(requireContext(), state.data.toString())
+                            Log.d("response data", "is valid -->${state.data}")
+                            val response = state.data
+                            val user = response?.data
+
+                            user?.let {
+                                sharedPreferences.saveTrainerData(
+                                    it.id.toString(),
+                                    response!!.token,
+                                    it.fullName,
+                                    it.email,
+                                    it.phoneNumber,
+                                    it.specialization,
+                                    it.profileImage,
+                                    it.gallery,"","","",""
+                                )}
+
+                            navigateToTrainerFragment()
+
+                        }
+                        is Resource.Error -> {
+                            binding.progressBar.visibility=View.GONE
+                            binding.verify.isEnabled = true
+                            Singleton.showToast(requireContext(), state.message.toString())
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                trainerViewModel.resendTrainer.collect { state ->
+                    when (state) {
+                        is Resource.Loading -> { }
+                        is Resource.Success -> {
+
+                            Singleton.showToast(requireContext(), state.message.toString())
+
+                        }
+                        is Resource.Error -> {
+
+                            Singleton.showToast(requireContext(), state.message.toString())
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
+    fun navigateToTrainerFragment(){
+        val navOptions = NavOptions.Builder()
+            .setPopUpTo(R.id.trainerFragment, true) // <-- This will remove AddGroundFragment
+            .build()
 
+        findNavController().navigate(R.id.action_otp_to_trainFragment,null,navOptions)
+    }
     private fun handleSuccess(data: LoginResponse) {
         Toast.makeText(requireContext(), data.message, Toast.LENGTH_SHORT).show()
-        Log.d("Resend", "--> Resend ${data}")
+        Log.d("otpsend", "--> otpsend ${data}")
         val groundData = data.ground
         sharedPreferences.saveData(
             data.token,
@@ -107,18 +176,12 @@ class OTPVerificationFragment : Fragment() {
         )
         Log.d("Resend", "--> Resend ${sharedPreferences.getMobileNumber()}")
 
-        if(sharedPreferences.getUserType().toString()=="trainer"){
-            val navOptions = NavOptions.Builder()
-                .setPopUpTo(R.id.trainerFragment, true) // <-- This will remove AddGroundFragment
-                .build()
 
-            findNavController().navigate(R.id.action_otp_to_trainFragment,null,navOptions)
-        }else{
             val intent = Intent(requireContext(), DashBoardActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
             startActivity(intent)
             requireActivity().finish()
-        }
+
 
     }
 
@@ -129,7 +192,15 @@ class OTPVerificationFragment : Fragment() {
 
     private fun verifyOTP() {
         if (Singleton.isNetworkAvailable(requireContext())) {
-            pin.let { viewModel.pinValidation(it, mobileNumber) }
+            pin.let {
+                if(sharedPreferences.getUserType().toString()=="trainer"){
+                    trainerViewModel.verifyTrainer(it, mobileNumber)
+                }else{
+                    viewModel.pinValidation(it, mobileNumber)
+                }
+
+
+            }
         } else {
             Singleton.showNetworkAlertDialog(requireContext())
         }
@@ -150,7 +221,16 @@ class OTPVerificationFragment : Fragment() {
 
             resendOtp.setDebouncedClickListener {
                 pinView.setText("")
-                viewModel.resend(mobileNumber)
+                if(Singleton.isNetworkAvailable(requireContext())){
+                    if(sharedPreferences.getUserType().toString()=="trainer"){
+                        trainerViewModel.resendTrainer(mobileNumber)
+                    }else{
+                        viewModel.resend(mobileNumber)
+                    }
+                }else{
+
+                }
+
             }
 
 

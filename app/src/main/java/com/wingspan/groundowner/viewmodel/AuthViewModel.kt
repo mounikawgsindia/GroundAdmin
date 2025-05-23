@@ -120,7 +120,7 @@ class AuthViewModel @Inject constructor(private val repository: AuthRepository):
     }
 
     private fun isValidNumber(number: String): Boolean {
-        return number.length == 10
+        return number.length == 13
     }
 
     private fun isValidPin(pin: String): Boolean {

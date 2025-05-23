@@ -19,17 +19,27 @@
         android:label="@string/app_name"
         android:roundIcon="@drawable/ball_logo"
         android:supportsRtl="true"
-        android:theme="@style/Base.Theme.GroundOwner"
+        android:theme="@style/Theme.GroundOwner"
         tools:targetApi="31">
+        <!-- change http images to image url-->
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="com.wingspan.groundowner.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <activity
             android:name=".activities.TrainerActivity"
             android:exported="false"
-            android:theme="@style/Base.Theme.GroundOwner"
+            android:theme="@style/Theme.GroundOwner"
 
            />
         <activity
             android:name=".activities.MainActivity"
-            android:theme="@style/Base.Theme.GroundOwner"
+            android:theme="@style/Theme.GroundOwner"
             android:exported="false" />
         <activity
             android:name=".activities.DashBoardActivity"

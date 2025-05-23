@@ -58,15 +58,27 @@
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:divider="?android:dividerHorizontal"
-            android:showDividers="middle"
             android:dividerPadding="8dp">
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@drawable/rounded_edittext"
+            android:padding="8dp"
+            android:layout_marginTop="24dp">
+            <TextView
+                android:text="@string/details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="@style/NormalTextStyle_black"
+                android:padding="6dp"
+                android:textStyle="bold"/>
             <!-- Full Name (Light Background) -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -77,10 +89,11 @@
                   />
 
                 <TextView
+                    android:id="@+id/fullnametv"
                     android:text="John Doe"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                style="@style/NormalTextStyle_black"
+                    style="@style/NormalTextStyle_black"
                     android:textStyle="bold"/>
             </LinearLayout>
 
@@ -92,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -102,7 +115,7 @@
                     style="@style/NormalTextStyle_grey"
                     />
                 <TextView
-                    android:text="dsadsdf"
+                    android:id="@+id/numbertv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextStyle_black"
@@ -113,7 +126,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -123,7 +136,7 @@
                     style="@style/NormalTextStyle_grey"
                     />
                 <TextView
-                    android:text="mounik@"
+                    android:id="@+id/emailtv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextStyle_black"
@@ -135,7 +148,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
@@ -145,7 +158,7 @@
                     style="@style/NormalTextStyle_grey"
                     />
                 <TextView
-                    android:text="yoga"
+                    android:id="@+id/spectv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextStyle_black"
@@ -157,11 +170,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="12dp"
+                android:padding="6dp"
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:text="PRofile Pics : "
+                    android:text="Gallery Pics : "
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/NormalTextStyle_grey"
@@ -175,7 +188,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/text_ll"
                     />
             </LinearLayout>
-
+        </LinearLayout>
             <!-- Boxed Info Section -->
             <LinearLayout
                 android:layout_width="match_parent"
@@ -184,6 +197,7 @@
                 android:background="@drawable/rounded_edittext"
                 android:padding="8dp"
                 android:layout_marginTop="24dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -192,12 +206,12 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:text="Available Day Slots : "
+                        android:text="Available Day : "
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_grey"/>
                     <TextView
-                        android:text="yoga"
+                        android:id="@+id/ava"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_black"
@@ -216,7 +230,7 @@
                         style="@style/NormalTextStyle_grey" />
 
                     <TextView
-                        android:text="yoga"
+                        android:id="@+id/slotstv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_black"
@@ -236,7 +250,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="yoga"
+                        android:id="@+id/pricetv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_black"
@@ -255,7 +269,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="yoga"
+                        android:id="@+id/abouttv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_black"
@@ -274,7 +288,7 @@
                         android:layout_height="wrap_content" />
 
                     <TextView
-                        android:text="yoga"
+                        android:id="@+id/addresstv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         style="@style/NormalTextStyle_black"

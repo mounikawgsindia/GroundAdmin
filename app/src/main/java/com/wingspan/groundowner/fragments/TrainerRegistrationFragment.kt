@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.provider.Settings
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -42,7 +43,6 @@ import com.wingspan.groundowner.viewmodel.TrainerViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.collections.isNullOrEmpty
 import kotlin.getValue
 import kotlin.text.isNullOrEmpty
 
@@ -53,10 +53,12 @@ class TrainerRegistrationFragment : Fragment() {
         private val binding get() = _binding!!
         private lateinit var addImagesAdapter: TrainerImageAdapter
         private var addImagesList = ArrayList<Uri>()
-    private val viewModel: TrainerViewModel by viewModels()
-        private val specializations = listOf("Trainer", "Coach", "Fitness Expert", "Sports Therapist", "Other")
+        private var personalImage: Uri? = null
+        private val viewModel: TrainerViewModel by viewModels()
+        private val specializations = listOf("Personal Trainer", "Yoga", "Dietician", "Sports Coach","Gym Trainer", "Other")
         @Inject
         lateinit var sharedPreferences: UserPreferences
+        private var countDownTimer: CountDownTimer? = null
         var phoneNumber=""
         var email=""
         var specification=""
@@ -174,7 +176,7 @@ class TrainerRegistrationFragment : Fragment() {
 
                 if (isFormComplete) {
                     if(Singleton.isNetworkAvailable(requireContext())){
-                        viewModel.postRegistration(phoneNumber,email,specification,fullName,addImagesList)
+                        viewModel.postRegistration(requireContext(),phoneNumber,email,specification,fullName,addImagesList,personalImage)
                     }else{
                         Singleton.isNetworkAvailable(requireContext())
                     }
@@ -193,9 +195,9 @@ class TrainerRegistrationFragment : Fragment() {
                         is Resource.Success -> {
                             binding.progressBar.visibility=View.GONE
                             binding.registerBtn.isEnabled = true
-                            Singleton.showToast(requireContext(), state.message.toString())
-                            navigateToLogin()
-
+                            binding.linearlayout1.visibility=View.VISIBLE
+                            Singleton.showToast(requireContext(), "OTP sent successfully")
+                            startOtpResendTimer()
                         }
                         is Resource.Error -> {
                             binding.progressBar.visibility=View.GONE
@@ -207,7 +209,57 @@ class TrainerRegistrationFragment : Fragment() {
                 }
             }
         }
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.verifyRegisterTrainer.collect { state ->
+                    when (state) {
+                        is Resource.Loading -> { binding.progressBar1.visibility=View.VISIBLE
+                            binding.verify.isEnabled = false}
+                        is Resource.Success -> {
+                            binding.progressBar1.visibility=View.GONE
+                            binding.verify.isEnabled = true
+                            //timer
+                            startOtpResendTimer()
+                            Singleton.showToast(requireContext(), state.message.toString())
+                            navigateToLogin()
 
+                        }
+                        is Resource.Error -> {
+                            binding.progressBar1.visibility=View.GONE
+                            binding.verify.isEnabled = true
+                            Singleton.showToast(requireContext(), state.message.toString())
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED) {
+                viewModel.resendTrainer.collect { state ->
+                    when (state) {
+                        is Resource.Loading -> { binding.progressBar1.visibility=View.VISIBLE
+                          }
+                        is Resource.Success -> {
+                            binding.progressBar1.visibility=View.GONE
+                            binding.verify.isEnabled = true
+                            //restart
+                            startOtpResendTimer()
+                            Singleton.showToast(requireContext(), state.message.toString())
+                            navigateToLogin()
+
+                        }
+                        is Resource.Error -> {
+                            binding.progressBar1.visibility=View.GONE
+
+                            Singleton.showToast(requireContext(), state.message.toString())
+                        }
+                        else -> {}
+                    }
+                }
+            }
+        }
     }
 
     private fun setSpinner() {
@@ -228,6 +280,14 @@ class TrainerRegistrationFragment : Fragment() {
                 addimagetv.setDebouncedClickListener {
                     openGalleryForImages()
                 }
+                binding.verify.setDebouncedClickListener {
+                   var  pin = pinView.text.toString()
+                    if(Singleton.isNetworkAvailable(requireContext())){
+                        viewModel.verifyRegsiterTrainer(pin, phoneNumber)
+                    }else{
+                        Singleton.isNetworkAvailable(requireContext())
+                    }
+                }
                 registerBtn.setDebouncedClickListener {
                     phoneNumber=mobilenumberEt.text.toString()
                     email=emailEt.text.toString()
@@ -236,11 +296,37 @@ class TrainerRegistrationFragment : Fragment() {
                     }
                     fullName=usernameEt.text.toString()
 
-                    viewModel.validInputs(phoneNumber,email,fullName,addImagesList)
+
+                    if(agreeTermsCheckbox.isChecked == true)
+                    {
+                        viewModel.validInputs(phoneNumber,email,fullName,addImagesList)
+                    }
+                    else{
+                        Singleton.showToast(requireContext(),"Please agree term of services")
+                    }
+
 
                 }
+                resendOtp.setDebouncedClickListener {
+                    pinView.setText("")
+                    if(Singleton.isNetworkAvailable(requireContext())){
+
+                        viewModel.resendTrainer(phoneNumber)
+
+                    }else{
+                        Singleton.isNetworkAvailable(requireContext())
+                    }
+
+                }
+                cameraIcon.setDebouncedClickListener {
+                    openGallery()
+                }
+
                 signInTV.setDebouncedClickListener {
                     navigateToLogin()
+                }
+                arrow.setDebouncedClickListener {
+                    specSpinner.performClick()
                 }
                 binding.specSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
                     override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -256,8 +342,19 @@ class TrainerRegistrationFragment : Fragment() {
 
                     override fun onNothingSelected(parent: AdapterView<*>) {}
                 }
+                binding.termsLink?.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("myKey", Singleton.termsAndConditions)
+                    findNavController().navigate(R.id.action_trainregister_to_privacypolicyfragment,bundle)
 
+                }
+                binding.privacyLink?.setOnClickListener {
+                    val bundle = Bundle()
+                    bundle.putString("myKey", Singleton.privacyPolicy)
+                    findNavController().navigate(R.id.action_trainregister_to_privacypolicyfragment,bundle)
+                }
             }
+
         }
 
     private fun navigateToLogin() {
@@ -338,7 +435,17 @@ class TrainerRegistrationFragment : Fragment() {
         }
     }
 
+    private fun openGallery() {
+        galleryLauncher.launch("image/*")
+    }
+    private val galleryLauncher = registerForActivityResult(ActivityResultContracts.GetContent()) { uri: Uri? ->
+        uri?.let {
+            binding.profileImage.setImageURI(it) // Show selected image
+            personalImage=uri
 
+        }
+
+    }
 
     fun View.visible() {
         this.visibility = View.VISIBLE
@@ -350,8 +457,29 @@ class TrainerRegistrationFragment : Fragment() {
     }
 
 
+    private fun startOtpResendTimer() {
+        countDownTimer = object : CountDownTimer(60000, 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                val secondsRemaining = millisUntilFinished / 1000
+                val minutes = secondsRemaining / 60
+                val seconds = secondsRemaining % 60
+                _binding?.displayTime?.text = String.format("%02d:%02d", minutes, seconds)
+            }
+
+            override fun onFinish() {
+                _binding?.displayTime?.text = "00:00"
+                _binding?.resendOtp?.isEnabled = true
+                _binding?.resendOtp?.setTextColor(
+                    ContextCompat.getColor(requireContext(), R.color.light_red)
+                )
+            }
+        }.start()
+    }
+
+
     override fun onDestroy() {
             super.onDestroy()
+        countDownTimer?.cancel()// Cancel timer to prevent accessing null binding
             _binding=null
     }
 

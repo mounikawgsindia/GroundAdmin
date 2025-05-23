@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/white">
+
+    <!-- Register Title -->
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+            <TextView
+                android:id="@+id/profile"
+                style="@style/MainHeadingTextStyle_green"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="Update Profile"
+                android:layout_marginTop="10dp" />
+
+
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                >
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profileImageUpdate"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile"
+                    android:contentDescription="Profile Image"
+                    app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
+                <ImageView
+                    android:id="@+id/cameraIcon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="14dp"
+                    android:src="@drawable/camera"
+                    android:background="@drawable/circle_bg"
+                    android:backgroundTint="@color/white"
+                    android:padding="6dp"
+                    android:contentDescription="Edit Profile Picture" />
+
+            </FrameLayout>
+
+            <!-- Form Fields Container -->
+
+            <LinearLayout
+                android:id="@+id/linearlayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+
+                app:layout_constraintVertical_bias="0.068">
+                <TextView
+                    android:id="@+id/usernametv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="FullName" />
+                <!-- Username Field -->
+                <EditText
+                    android:id="@+id/usernameEt"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="Fullname"
+                    android:padding="6dp"
+                    android:layout_marginTop="3dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="Autofill,LabelFor,RtlSymmetry" />
+
+                <TextView
+                    android:id="@+id/usernameErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/spectv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Specialization" />
+                <EditText
+                    android:id="@+id/spec_et"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="Specialization"
+                    android:layout_marginTop="3dp"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="TextFields" />
+
+                <TextView
+                    android:id="@+id/specErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/addresstv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Address" />
+                <EditText
+                    android:id="@+id/address_et"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="Address"
+                    android:layout_marginTop="3dp"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="TextFields" />
+                <TextView
+                    android:id="@+id/addressErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/abouttv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="About" />
+                <EditText
+                    android:id="@+id/about_et"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="About"
+                    android:layout_marginTop="3dp"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="TextFields" />
+                <TextView
+                    android:id="@+id/aboutErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/pricetv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Price" />
+
+                <EditText
+                    android:id="@+id/price_et"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginTop="3dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="ex.,500₹"
+                    android:inputType="number"
+                    android:padding="6dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="TextFields" />
+                <TextView
+                    android:id="@+id/priceErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/slotstv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Slots" />
+                <EditText
+                    android:id="@+id/slots_et"
+                    style="@style/NormalTextStyle_black"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:background="@drawable/rounded_edittext"
+                    android:hint="ex.,11 AM - 12 PM,01PM-02PM"
+                    android:layout_marginTop="3dp"
+                    android:inputType="text"
+                    android:padding="6dp"
+                    android:textColorHint="@color/grey"
+                    tools:ignore="TextFields" />
+
+                <TextView
+                    android:id="@+id/slotErrorTV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+                    android:visibility="gone" />
+                <TextView
+                    android:id="@+id/avaiabletv"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginStart="5dp"
+                    android:text="Avalable Days" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/date_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:ignore="MissingConstraints"
+                    />
+                <LinearLayout
+                    android:id="@+id/text_ll"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="10dp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    tools:ignore="MissingConstraints">
+
+                    <!-- First TextView -->
+                    <TextView
+                        style="@style/NormalTextStyle_Green"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start"
+                        android:text="Update Images(max 6 images)"
+                        />
+
+                    <!-- Second TextView (Add Image) -->
+                    <TextView
+                        android:id="@+id/addimagetv"
+                        style="@style/NormalTextStyle_black"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="10dp"
+                        android:gravity="start"
+                        android:layout_weight="1"
+                        android:text="Add Image"
+                        android:textStyle="bold" />
+
+
+                </LinearLayout>
+                <TextView
+                    android:id="@+id/imagesError1TV"
+                    style="@style/ErrorTextStyle_red"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="4dp"
+
+                    android:visibility="gone" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/update_rv"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/text_ll"
+                    tools:ignore="MissingConstraints"
+                    tools:listitem="@layout/custom_ground_images" />
+
+                <FrameLayout
+                    android:id="@+id/register_button_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/ripple_effect"
+                    app:layout_constraintStart_toStartOf="parent"
+                   >
+
+                    <androidx.appcompat.widget.AppCompatButton
+                        android:id="@+id/update_btn"
+                        style="@style/NormalTextStyle_white"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/ripple_effect"
+                        android:text="Update Profile"
+                        android:textStyle="bold" />
+
+                    <ProgressBar
+                        android:id="@+id/progress_bar_update"
+                        android:layout_width="24dp"
+                        android:layout_height="24dp"
+                        android:layout_gravity="center|end"
+                        android:layout_marginEnd="12dp"
+                        android:visibility="gone"
+                        android:indeterminateTint="@color/white" />
+                </FrameLayout>
+
+
+
+
+
+            </LinearLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -19,11 +19,11 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="16dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
     <TextView
         android:id="@+id/register1"
         style="@style/MainHeadingTextStyle_green"
@@ -34,7 +34,35 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="60dp" />
+        android:layout_marginTop="10dp" />
+            <FrameLayout
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_gravity="center"
+                >
+
+                <com.google.android.material.imageview.ShapeableImageView
+                    android:id="@+id/profileImage"
+                    android:layout_width="100dp"
+                    android:layout_height="100dp"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/profile"
+                    android:contentDescription="Profile Image"
+                    app:shapeAppearanceOverlay="@style/CircleImageShape" />
+
+                <ImageView
+                    android:id="@+id/cameraIcon"
+                    android:layout_width="36dp"
+                    android:layout_height="36dp"
+                    android:layout_gravity="bottom|end"
+                    android:layout_margin="14dp"
+                    android:src="@drawable/camera"
+                    android:background="@drawable/circle_bg"
+                    android:backgroundTint="@color/white"
+                    android:padding="6dp"
+                    android:contentDescription="Edit Profile Picture" />
+
+            </FrameLayout>
 
     <!-- Sub-Title -->
     <TextView
@@ -184,7 +212,7 @@
                 android:textSize="16sp" />
 
             <ImageView
-                android:id="@+id/city_arow"
+                android:id="@+id/arrow"
                 android:layout_width="36dp"
                 android:layout_height="36dp"
                 android:contentDescription="TODO"
@@ -260,10 +288,62 @@
             app:layout_constraintTop_toBottomOf="@+id/text_ll"
             tools:ignore="MissingConstraints"
             tools:listitem="@layout/custom_ground_images" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="0dp"
+            android:paddingEnd="0dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp">
+
+            <CheckBox
+                android:id="@+id/agreeTermsCheckbox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="0dp"
+                android:layout_marginEnd="0dp"
+                android:textSize="12sp"
+                android:text="I agree to the"
+                android:paddingStart="0dp"
+                android:paddingEnd="0dp"
+                android:paddingLeft="0dp"
+                android:paddingRight="0dp"
+                android:padding="0dp"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="0dp"
+                android:layout_marginTop="0dp"
+                android:layout_marginBottom="0dp" />
+
+            <TextView
+                android:id="@+id/termsLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Terms of Service "
+                android:textSize="12sp"
+                android:background="@drawable/textview_ripple"
+                android:textColor="@android:color/holo_blue_light" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" and "
+                android:textSize="12sp"
+                style="@style/NormalTextStyle_black"/>
+
+            <TextView
+                android:id="@+id/privacyLink"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text=" Privacy Policy "
+                android:textSize="12sp"
+                android:background="@drawable/textview_ripple"
+                android:textColor="@android:color/holo_blue_light" />
+        </LinearLayout>
         <FrameLayout
             android:id="@+id/register_button_container"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
             android:layout_marginTop="6dp"
             android:background="@drawable/ripple_effect"
             app:layout_constraintStart_toStartOf="parent"
@@ -288,7 +368,118 @@
                 android:indeterminateTint="@color/white" />
         </FrameLayout>
 
+        <LinearLayout
+            android:id="@+id/linearlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/displayText"
+            android:paddingTop="24dp">
 
+
+            <com.chaos.view.PinView
+                android:id="@+id/pinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:inputType="number"
+                android:cursorVisible="true"
+                app:itemCount="6"
+                app:lineColor="@color/grey"
+                tools:ignore="MissingClass"
+                android:focusableInTouchMode="true"
+                app:cursorColor="@color/black"/>
+
+
+            <FrameLayout
+                android:id="@+id/register_button_container1"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/ripple_effect"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/trainer_rv">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/verify"
+                    style="@style/NormalTextStyle_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/ripple_effect"
+                    android:text="@string/verify"
+                    android:textStyle="bold"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/editTextText3"
+                    tools:ignore="MissingConstraints" />
+
+                <ProgressBar
+                    android:id="@+id/progress_bar1"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+                    android:layout_gravity="center|end"
+                    android:layout_marginEnd="12dp"
+                    android:visibility="gone"
+                    android:indeterminateTint="@color/white" />
+            </FrameLayout>
+            <LinearLayout
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/verify">
+
+                <TextView
+                    style="@style/NormalTextStyle_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/time_remaining" />
+
+                <TextView
+                    android:id="@+id/display_time"
+                    style="@style/NormalTextStyle_grey"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/textview_ripple"
+                    android:text="@string/_01_00"
+
+                    />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp"
+                android:gravity="center"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/time">
+                <TextView
+                    android:id="@+id/textView19"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/do_not_receive_OTP"
+                    style="@style/NormalTextStyle_black"
+                    />
+
+                <TextView
+                    android:id="@+id/resend_otp"
+                    style="@style/NormalTextStyle_Green"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:background="@drawable/textview_ripple"
+                    android:text="@string/resent_otp"
+                    android:textAllCaps="false"
+
+                    />
+            </LinearLayout>
+
+        </LinearLayout>
 
         <!-- "Already have an account? Sign In" -->
         <LinearLayout

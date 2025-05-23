@@ -31,6 +31,12 @@
     <action
         android:id="@+id/action_register_to_login"
         app:destination="@id/loginFragment" />
+
+        <action
+            android:id="@+id/action_register_to_privacypolicyfragment"
+            app:destination="@id/pravacypolicyFragment"
+
+            />
     </fragment>
 
     <fragment
@@ -62,6 +68,11 @@
         <action
             android:id="@+id/action_trainRegistration_to_loginFragment"
             app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_trainregister_to_privacypolicyfragment"
+            app:destination="@id/pravacypolicyFragment"
+
+            />
     </fragment>
 
 
@@ -72,4 +83,9 @@
         tools:layout="@layout/fragment_trainer" >
 
     </fragment>
+    <fragment android:id="@+id/pravacypolicyFragment"
+        android:name="com.wingspan.groundowner.fragments.PrivacyPolicyFragment"
+        android:label="Payment gateway"
+        tools:layout="@layout/fragment_privacypolicy"/>
+
 </navigation>

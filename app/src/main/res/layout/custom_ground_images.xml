@@ -9,8 +9,8 @@
 
     <!-- CardView with Image and Close Button -->
     <androidx.cardview.widget.CardView
-        android:layout_width="150dp"
-        android:layout_height="170dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         app:cardCornerRadius="5dp"
@@ -22,8 +22,8 @@
 
             <ImageView
                 android:id="@+id/imageIV"
-                android:layout_width="150dp"
-                android:layout_height="150dp"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
                 android:scaleType="fitXY"
                 android:src="@drawable/gallery1"
                 tools:ignore="ContentDescription" />
